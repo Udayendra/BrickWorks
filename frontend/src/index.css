@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.commonContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+}
+
+.bgImage {
+  background-image: url("/src/assets/images/hero-5.png");
+  background-attachment: fixed;
+  background-position-y: 20%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bgImage1 {
+  background-image: url("/src/assets/images/construction42.jpg");
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

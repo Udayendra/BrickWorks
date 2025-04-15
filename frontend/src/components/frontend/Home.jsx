@@ -16,13 +16,13 @@ const Home = () => {
       <div className="bgImage h-[800px] w-full flex items-center justify-center">
         <div className=" h-[800px] w-full flex items-center justify-center bg-black/10">
           <div className="text-center text-white">
-            <span className="text-[1.5rem] font-semibold text-highlightColor capitalize">
+            <span className="text-[1.5rem] z-20 inline-block font-semibold text-highlightColor capitalize   backdrop-blur-sm drop-shadow-xl px-2 py-1 rounded-md bg-gradient-to-r from-white/50 via-white/30 to-white/50">
               Welcome to amazing constructions
             </span>
-            <h1 className="text-[3rem] md:text-[4rem] font-bold leading-tight capitalize">
+            <h1 className="text-[3rem] md:text-[4rem] font-bold leading-tight capitalize drop-shadow-md">
               Craft dreams with <br /> precision and excellence
             </h1>
-            <p className="text-md font-semibold">
+            <p className="text-md font-semibold drop-shadow-md">
               we excel at transforming visions into reality throught outstanding
               craftmanship and precise <br />
               attention to details. With year of experience and dedication to

@@ -106,7 +106,7 @@ const Show = () => {
               </header>
               <table className="w-full mt-5">
                 <thead>
-                  <tr>
+                  <tr className="bg-gray-100">
                     <th className="border px-4 py-2">ID</th>
                     <th className="border px-4 py-2">Name</th>
                     <th className="border px-4 py-2">Slug</th>
@@ -137,7 +137,7 @@ const Show = () => {
                             <MdDeleteOutline
                               size={24}
                               onClick={() => deleteService(service.id)}
-                              className="text-blue-600 cursor-pointer hover:text-blue-800"
+                              className="text-red-600 cursor-pointer hover:text-red-800"
                             />
                           </td>
                         </tr>

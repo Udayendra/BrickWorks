@@ -91,22 +91,18 @@ const ShowProject = () => {
                   onCreateProject={fetchProjects}
                 />
               </header>
-              <table className="w-full mt-5 border-collapse border border-gray-300">
+              <table className="w-full mt-5">
                 <thead>
                   <tr className="bg-gray-100">
-                    <th className="border border-gray-300 px-4 py-2 text-left">
-                      ID
-                    </th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">
+                    <th className="border  px-4 py-2 text-left">ID</th>
+                    <th className="border px-4 py-2 text-left">
                       Project Title
                     </th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">
-                      Project Slug
-                    </th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">
+                    <th className="border px-4 py-2 text-left">Project Slug</th>
+                    <th className="border px-4 py-2 text-left">
                       Status (Active/Inactive)
                     </th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">
+                    <th className="border px-4 py-2 text-left">
                       Actions (Edit/Delete)
                     </th>
                   </tr>
@@ -116,19 +112,13 @@ const ShowProject = () => {
                     projects.map((project, index) => {
                       return (
                         <tr key={index} className="hover:bg-gray-50">
-                          <td className="border border-gray-300 px-4 py-2">
-                            {project.id}
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">
-                            {project.title}
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">
-                            {project.slug}
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">
+                          <td className="border px-4 py-2">{project.id}</td>
+                          <td className="border px-4 py-2">{project.title}</td>
+                          <td className="border px-4 py-2">{project.slug}</td>
+                          <td className="border px-4 py-2">
                             {project.status == 1 ? "Active" : "Inactive"}
                           </td>
-                          <td className="border border-gray-300 px-4 py-2 flex space-x-2">
+                          <td className="inline-flex w-full items-center justify-evenly border px-4 py-2">
                             <FiEdit
                               size={20}
                               onClick={() => {

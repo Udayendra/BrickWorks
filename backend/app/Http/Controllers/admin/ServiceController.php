@@ -40,6 +40,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['slug' => Str::slug($request->slug)]);
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'slug' => 'required|unique:services,slug'
@@ -62,7 +63,7 @@ class ServiceController extends Controller
 
         if ($request->imageId > 0) {
             $tempImage = TempImage::find($request->imageId);
-            if ($tempImage != null){
+            if ($tempImage != null) {
                 $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
                 $fileName = strtotime('now') . $modal->id . '.' . $ext;
@@ -123,9 +124,17 @@ class ServiceController extends Controller
                 'message' => 'Service not found'
             ], 404);
         }
-        $validator = Validator::make($request->all(), [
+
+        $slug = Str::slug($request->slug);
+
+        $validator = Validator::make([
+            'title' => $request->title,
+            'slug' => $slug,
+
+        ], [
             'title' => 'required',
-            'slug' => 'required|unique:services,slug,' . $id . ',id'
+            'slug' => 'required|unique:services,slug,' . $id . ',id',
+
         ]);
 
         if ($validator->fails()) {
@@ -140,30 +149,50 @@ class ServiceController extends Controller
         $service->slug = Str::slug($request->slug);
         $service->content = $request->content;
         $service->status = $request->status;
-        $service->save();
+        // $service->save();
 
-        if ($request->imageId > 0) {
+        // $service->update([
+        //     'title' => $request->title,
+        //     'short_desc' => $request->short_desc,
+        //     'slug' => $slug,
+        //     'content' => $request->content,
+        //     'status' => $request->status,
+        // ]);
+
+        if ($request->imageId) {
             $oldImage = $service->image;
             $tempImage = TempImage::find($request->imageId);
-            if ($tempImage != null) {
-                $extArray = explode('.', $tempImage->name);
-                $ext = last($extArray);
+
+            if ($tempImage) {
+                $ext = pathinfo($tempImage->name, PATHINFO_EXTENSION);
                 $fileName = strtotime('now') . $service->id . '.' . $ext;
 
                 $sourcepath = public_path('uploads/temp/' . $tempImage->name);
                 $despath = public_path('uploads/services/' . $fileName);
-                $manager = new ImageManager(Driver::class);
-                $image = $manager->read($sourcepath);
-                $image->scaleDown(1200);
-                $image->save($despath);
+                try {
+                    $manager = new ImageManager(Driver::class);
+                    $image = $manager->read($sourcepath);
+                    $image->scaleDown(1200);
+                    $image->save($despath);
 
-                $service->image = $fileName;
-                $service->save();
-                if($oldImage != null){
-                    File::delete(public_path('uploads/services/' . $oldImage));
+                    $service->image = $fileName;
+                    // $service->save();
+
+                    if ($oldImage != null) {
+                        File::delete(public_path('uploads/services/' . $oldImage));
+                    }
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Image processing failed',
+                        'error' => $e->getMessage()
+                    ], 500);
                 }
             }
         }
+
+        $service->save();
+
 
         return response()->json([
             'status' => true,

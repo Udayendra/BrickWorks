@@ -118,7 +118,7 @@ const Show = () => {
                   {services &&
                     services.map((service, index) => {
                       return (
-                        <tr key={index}>
+                        <tr key={index} className="hover:bg-gray-50">
                           <td className="border px-4 py-2">{service.id}</td>
                           <td className="border px-4 py-2">{service.title}</td>
                           <td className="border px-4 py-2">{service.slug}</td>

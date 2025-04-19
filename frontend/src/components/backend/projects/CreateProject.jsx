@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "../loading";
-import { useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 
@@ -12,15 +12,28 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm();
-  if (!createOpen) return;
+
+  useEffect(() => {
+    if (createOpen) {
+      document.documentElement.style.overflow = "hidden"; // Prevent background scroll
+    } else {
+      document.documentElement.style.overflow = "auto"; // Restore scroll when closed
+    }
+
+    return () => {
+      document.documentElement.style.overflow = "auto"; // Cleanup on unmount
+    };
+  }, [createOpen]);
+
+  if (!createOpen) return null;
 
   const onSubmit = async (data) => {
     try {
       setLoading(true);
+      // Include new fields along with others and imageId
       const newData = { ...data, imageId: imageId };
       console.log(newData);
 
@@ -28,7 +41,6 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Accept: "application/json",
           Authorization: `Bearer ${token()}`,
         },
         body: JSON.stringify(newData),
@@ -39,12 +51,8 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
         await onCreateProject();
         reset();
         onClose();
-        // console.log(result.message);
-        // setLoading(false);
       } else {
         toast.error(result.message);
-        // setLoading(false);
-        // console.log(result.message);
       }
     } catch (err) {
       toast.error("Something went wrong. Please try again");
@@ -52,6 +60,7 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
       setLoading(false);
     }
   };
+
 
   const handleimage = async (e) => {
     const formData = new FormData();
@@ -76,96 +85,147 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
           setImageId(result.data.id);
         }
       });
-      setDisabled(false);
+    setDisabled(false);
   };
+
   return (
-    <div className="z-10 w-full h-full bg-black/20 fixed inset-0 flex items-center justify-center overflow-y-auto py-10">
-      <div className="bg-white w-[34rem] px-5 py-5 rounded-lg">
+    <div className="z-30 w-full h-full bg-black/20 fixed top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
         </header>
         <main>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-5">
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Name
-              </label>
-              <input
-                {...register("title")}
-                required
-                type="text"
-                id="name"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Name"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="name"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Name
+                </label>
+                <input
+                  {...register("title")}
+                  required
+                  type="text"
+                  id="name"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="slug"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Slug
+                </label>
+                <input
+                  {...register("slug")}
+                  required
+                  type="text"
+                  id="slug"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="slug"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Slug
-              </label>
-              <input
-                {...register("slug")}
-                required
-                type="text"
-                id="slug"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="short_description"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Short description
+                </label>
+                <input
+                  {...register("short_desc")}
+                  required
+                  type="text"
+                  id="short_description"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
+              {/* New Fields Start */}
+              <div className="mb-5">
+                <label
+                  htmlFor="construction_type"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Construction Type
+                </label>
+                <input
+                  {...register("construction_type")}
+                  required
+                  type="text"
+                  id="construction_type"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="short_description"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Short description
-              </label>
-              <input
-                {...register("short_desc")}
-                required
-                type="text"
-                id="short_description"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="sector"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Sector
+                </label>
+                <input
+                  {...register("sector")}
+                  required
+                  type="text"
+                  id="sector"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="location"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Location
+                </label>
+                <input
+                  {...register("location")}
+                  required
+                  type="text"
+                  id="location"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="content"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Content
-              </label>
-              <input
-                {...register("content")}
-                required
-                type="text"
-                id="content"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="status"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Status
-              </label>
-              <select
-                {...register("status")}
-                name="status"
-                id="status"
-                className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm  transition-all duration-200 ease-in-out hover:border-gray-400"
-              >
-                <option value="1">Active</option>
-                <option value="0">Block</option>
-              </select>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="content"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Content
+                </label>
+                <input
+                  {...register("content")}
+                  required
+                  type="text"
+                  id="content"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="status"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Status
+                </label>
+                <select
+                  {...register("status")}
+                  name="status"
+                  id="status"
+                  className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm transition-all duration-200 ease-in-out hover:border-gray-400"
+                >
+                  <option value="1">Active</option>
+                  <option value="0">Block</option>
+                </select>
+              </div>
             </div>
             <div className="mb-5">
               <label
@@ -174,28 +234,20 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
               >
                 Upload image
               </label>
-              <input
-                // {...register("content")}
-                required
-                type="file"
-                id="content"
-                onChange={handleimage}
-                // className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+              <input required type="file" id="content" onChange={handleimage} />
             </div>
             <div className="flex justify-end space-x-2 mt-6">
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex items-center justify-center  mr-2 border-2 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
+                className="inline-flex items-center justify-center mr-2 border-2 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
               >
                 Cancel
               </button>
               <button
                 disabled={loading || disabled}
                 type="submit"
-                className="inline-flex items-center justify-center text-white mr-2 bg-highlightColor hover:bg-highlightColor/80  focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
+                className="inline-flex items-center justify-center text-white mr-2 bg-highlightColor hover:bg-highlightColor/80 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
               >
                 Submit{" "}
                 {loading ? (

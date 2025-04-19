@@ -36,9 +36,6 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
         },
       }).then((res) => res.json());
     }
-  }, [editOpen, service?.id, reset]);
-  // console.log(service)
-  useEffect(() => {
     if (editOpen) {
       document.documentElement.style.overflow = "hidden"; // Prevent background scroll
     } else {
@@ -48,7 +45,11 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
     return () => {
       document.documentElement.style.overflow = "auto"; // Cleanup on unmount
     };
-  }, [editOpen]);
+  }, [editOpen, service?.id, reset]);
+  // console.log(service)
+  // useEffect(() => {
+
+  // }, [editOpen]);
 
   // reset({
   //   title: service.title,
@@ -127,8 +128,8 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
   };
 
   return (
-    <div className="z-10 w-full h-full bg-black/20 fixed inset-0 flex justify-center py-5  overflow-auto">
-      <div className="bg-white w-[34rem] px-5 py-5 rounded-lg h-[107vh]">
+    <div className="z-10 w-full h-full bg-black/20 fixed left-0 top-0 flex justify-center overflow-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[40rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Edit Service</h3>
         </header>
@@ -150,37 +151,39 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
                 // placeholder="Name"
               />
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="slug"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Slug
-              </label>
-              <input
-                {...register("slug")}
-                required
-                type="text"
-                id="slug"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="short_description"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Short description
-              </label>
-              <input
-                {...register("short_desc")}
-                required
-                type="text"
-                id="short_description"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="slug"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Slug
+                </label>
+                <input
+                  {...register("slug")}
+                  required
+                  type="text"
+                  id="slug"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                  // placeholder="Slug"
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="short_description"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Short description
+                </label>
+                <input
+                  {...register("short_desc")}
+                  required
+                  type="text"
+                  id="short_description"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                  // placeholder="Slug"
+                />
+              </div>
             </div>
             <div className="mb-5">
               <label

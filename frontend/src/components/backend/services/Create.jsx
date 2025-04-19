@@ -1,6 +1,6 @@
 import React from "react";
 import Loading from "../loading";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { set, useForm } from "react-hook-form";
 import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
@@ -16,6 +16,19 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
     reset,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    if (createOpen) {
+      document.documentElement.style.overflow = "hidden"; // Prevent background scroll
+    } else {
+      document.documentElement.style.overflow = "auto"; // Restore scroll when closed
+    }
+
+    return () => {
+      document.documentElement.style.overflow = "auto"; // Cleanup on unmount
+    };
+  }, [createOpen]);
+
   if (!createOpen) return;
 
   const onSubmit = async (data) => {
@@ -76,12 +89,12 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
           setImageId(result.data.id);
         }
       });
-      setDisabled(false);
+    setDisabled(false);
   };
 
   return (
-    <div className="z-10 w-full h-full bg-black/20 fixed inset-0 flex items-center justify-center overflow-y-auto py-10">
-      <div className="bg-white w-[34rem] px-5 py-5 rounded-lg">
+    <div className="z-10 w-full h-full bg-black/20 fixed top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[40rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
         </header>
@@ -103,37 +116,39 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
                 // placeholder="Name"
               />
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="slug"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Slug
-              </label>
-              <input
-                {...register("slug")}
-                required
-                type="text"
-                id="slug"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="short_description"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Short description
-              </label>
-              <input
-                {...register("short_desc")}
-                required
-                type="text"
-                id="short_description"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="slug"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Slug
+                </label>
+                <input
+                  {...register("slug")}
+                  required
+                  type="text"
+                  id="slug"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                  // placeholder="Slug"
+                />
+              </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="short_description"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Short description
+                </label>
+                <input
+                  {...register("short_desc")}
+                  required
+                  type="text"
+                  id="short_description"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                  // placeholder="Slug"
+                />
+              </div>
             </div>
             <div className="mb-5">
               <label
@@ -154,7 +169,7 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
             <div className="mb-5">
               <label
                 htmlFor="status"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-textColor mb-1"
               >
                 Status
               </label>

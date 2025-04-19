@@ -59,6 +59,7 @@ const ourServices = [
 const ServicesPage = () => {
   const [viewServices, setViewServices] = useState([]);
 
+  
   const fetchService = async () => {
     const res = await fetch(apiUrl + "view-service", {
       method: "GET",
@@ -73,14 +74,11 @@ const ServicesPage = () => {
     } else {
       console.log("false");
     }
-    // console.log(result);
   };
 
   useEffect(() => {
-    // console.log("fetchservice")
     fetchService();
   }, []);
-  // console.log(viewServices)
 
   return (
     <div>

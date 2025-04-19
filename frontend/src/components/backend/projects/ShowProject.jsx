@@ -41,6 +41,7 @@ const ShowProject = () => {
   };
 
   const deleteProject = async (id) => {
+    console.log(id);
     if (!confirm("Are you sure you want to delete this project?")) return;
     try {
       const res = await fetch(apiUrl + "projects/" + id, {
@@ -66,6 +67,7 @@ const ShowProject = () => {
   useEffect(() => {
     fetchProjects();
   }, []);
+  
 
   return (
     <>
@@ -94,16 +96,25 @@ const ShowProject = () => {
               <table className="w-full mt-5">
                 <thead>
                   <tr className="bg-gray-100">
-                    <th className="border  px-4 py-2 text-left">ID</th>
+                    <th className="border px-4 py-2 text-left">ID</th>
                     <th className="border px-4 py-2 text-left">
                       Project Title
                     </th>
                     <th className="border px-4 py-2 text-left">Project Slug</th>
+                    {/* <th className="border px-4 py-2 text-left">
+                      Short Description
+                    </th>
+                    <th className="border px-4 py-2 text-left">Content</th> */}
                     <th className="border px-4 py-2 text-left">
-                      Status (Active/Inactive)
+                      Construction Type
+                    </th>
+                    {/* <th className="border px-4 py-2 text-left">Location</th>
+                    <th className="border px-4 py-2 text-left">Sector</th> */}
+                    <th className="border px-4 py-2 text-left">
+                      Status
                     </th>
                     <th className="border px-4 py-2 text-left">
-                      Actions (Edit/Delete)
+                      Actions
                     </th>
                   </tr>
                 </thead>
@@ -115,17 +126,30 @@ const ShowProject = () => {
                           <td className="border px-4 py-2">{project.id}</td>
                           <td className="border px-4 py-2">{project.title}</td>
                           <td className="border px-4 py-2">{project.slug}</td>
+                          {/* <td className="border px-4 py-2">
+                            {project.short_desc}
+                          </td> */}
+                          {/* <td className="border px-4 py-2">
+                            {project.content}
+                          </td> */}
+                          <td className="border px-4 py-2">
+                            {project.construction_type}
+                          </td>
+                          {/* <td className="border px-4 py-2">
+                            {project.location}
+                          </td> */}
+                          {/* <td className="border px-4 py-2">{project.sector}</td> */}
                           <td className="border px-4 py-2">
                             {project.status == 1 ? "Active" : "Inactive"}
                           </td>
-                          <td className="inline-flex w-full items-center justify-evenly border px-4 py-2">
+                          <td className="inline-flex w-full h-auto items-center justify-evenly border px-4 py-2">
                             <FiEdit
                               size={20}
                               onClick={() => {
                                 setEditOpen(true);
                                 setSelectedProject(project);
                               }}
-                              className="text-blue-600 cursor-pointer hover:text-blue-800 "
+                              className="text-blue-600 cursor-pointer hover:text-blue-800"
                             />
                             <MdDeleteOutline
                               size={24}

@@ -54,7 +54,7 @@ class ProjectController extends Controller
 
         if ($request->imageId > 0) {
             $tempImage = TempImage::find($request->imageId);
-            if ($tempImage != null){
+            if ($tempImage != null) {
                 $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
                 $fileName = strtotime('now') . $project->id . '.' . $ext;
@@ -77,6 +77,7 @@ class ProjectController extends Controller
         ]);
     }
 
+    // update priject
     public function update(Request $request, $id)
     {
         $project = Project::Find($id);
@@ -135,10 +136,11 @@ class ProjectController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => $project
+            'message' => 'Project updated sucessfully'
         ]);
     }
 
+    // show project by id
     public function show($id)
     {
         $project = Project::Find($id);
@@ -154,21 +156,21 @@ class ProjectController extends Controller
         ]);
     }
 
+    // deletet project
     public function destroy($id)
     {
         $project = Project::find($id);
-
         if (!$project) {
             return response()->json([
                 'status' => false,
-                'message' => 'Service not found'
+                'message' => 'Project not not found'
             ], 500);
         }
 
         $project->delete();
         return response()->json([
             'status' => true,
-            'message' => 'Service deleted successfully'
+            'message' => 'Project deleted successfully'
         ]);
     }
 }

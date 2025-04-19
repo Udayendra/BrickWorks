@@ -43,7 +43,7 @@ export const SideBar = () => {
 
   return (
     <>
-      <div className="w-64 flex flex-col justify-between shadow-lg shadow-gray-500/50">
+      <div className="w-64 flex flex-col justify-between shadow-lg shadow-gray-500/50 pb-5">
         <div className="">
           <div className="font-bold text-2xl text-textColor my-5 w-full text-center ">
             <a href="/">
@@ -76,8 +76,8 @@ export const SideBar = () => {
         </div>
         <button
           onClick={logout}
-          className="group inline-flex items-center justify-center font-semibold w-full text-xl text-center text-highlightColor py-5 cursor-pointer hover:bg-highlightColor hover:text-white transition-colors duration-200"
-        >
+          className="group relative inline-flex items-center justify-center font-semibold w-full text-xl text-center text-highlightColor pt-3 pb-4 cursor-pointer hover:bg-highlightColor hover:text-white transition-colors duration-200"
+        ><span className="w-5 h-5 bg-white absolute left-0 -bottom-4 group-hover:bg-highlightColor  transition-colors duration-200"></span>
           <span className="mr-[5px]">Logout</span>
           {/* <FiLogOut />{" "} */}
           <span className="relative">

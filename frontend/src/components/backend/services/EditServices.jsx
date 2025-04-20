@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Loading from "../loading";
 import { useState } from "react";
 import { set, useForm } from "react-hook-form";
-import { apiUrl, imageUrl, token } from "../../common/http";
+import { apiUrl, serviceImageUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 
 const EditServices = ({ editOpen, onClose, onEditService, service }) => {
@@ -238,7 +238,7 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
               </div>
               <div className="flex justify-end">
                 <img
-                  src={imageUrl + service.image}
+                  src={serviceImageUrl + service.image}
                   alt="Service image"
                   className="h-24 w-24 object-cover"
                 />

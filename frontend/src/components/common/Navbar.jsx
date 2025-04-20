@@ -26,10 +26,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 ${
+      className={`fixed top-0 left-0  ${
         isSticky ? "w-[80%] left-[10%] rounded-full top-5" : "w-full"
       } transition-width duration-300 z-20 ${
-        isHome && !isSticky ? "bg-transparent" : "bg-white shadow-lg"
+        isHome && !isSticky ? "bg-transparent" : "bg-white/70 shadow-lg backdrop-blur-lg"
       } `}
     >
       <div className="commonContainer   ">

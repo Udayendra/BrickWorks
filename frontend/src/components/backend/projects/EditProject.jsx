@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Loading from "../loading";
 import { useState } from "react";
 import { set, useForm } from "react-hook-form";
-import { apiUrl, imageUrl, token } from "../../common/http";
+import { apiUrl, imageUrl, projectImageUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 
 const EditProject = ({ editOpen, onClose, onEditProject, project }) => {
@@ -264,14 +264,28 @@ const EditProject = ({ editOpen, onClose, onEditProject, project }) => {
                 </select>
               </div>
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="content"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Upload image
-              </label>
-              <input required type="file" id="content" onChange={handleimage} />
+            <div className="mb-5 grid grid-cols-2">
+              <div className="">
+                <label
+                  htmlFor="content"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Upload image
+                </label>
+                <input
+                  required
+                  type="file"
+                  id="content"
+                  onChange={handleimage}
+                />
+              </div>
+              <div className="flex justify-end">
+                <img
+                  src={projectImageUrl + project.image}
+                  alt="project image"
+                  className="h-24 w-24 object-cover"
+                />
+              </div>
             </div>
             <div className="flex justify-end space-x-2 mt-6">
               <button

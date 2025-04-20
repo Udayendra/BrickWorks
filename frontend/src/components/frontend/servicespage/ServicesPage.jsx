@@ -6,7 +6,7 @@ import img2 from "../../../assets/images/GeneralContract.png";
 import img3 from "../../../assets/images/construction42.jpg";
 import img4 from "../../../assets/images/building-contracting.jpg";
 import Button from "../Button";
-import { apiUrl, imageUrl } from "../../common/http";
+import { apiUrl, serviceImageUrl } from "../../common/http";
 
 const ourServices = [
   {
@@ -59,7 +59,6 @@ const ourServices = [
 const ServicesPage = () => {
   const [viewServices, setViewServices] = useState([]);
 
-  
   const fetchService = async () => {
     const res = await fetch(apiUrl + "view-service", {
       method: "GET",
@@ -124,23 +123,23 @@ const ServicesPage = () => {
         </div>
         {/*----------------- services ----------------- */}
         <div className="commonContainer py-10 w-full flex flex-wrap justify-center">
-          {viewServices.map((item, index) => (
+          {viewServices.map((service, index) => (
             <div
               key={index}
               className="w-[22rem] h-[28rem] rounded-xl m-3 relative overflow-hidden group"
             >
               <img
-                src={imageUrl + item.image}
+                src={serviceImageUrl + service.image}
                 className="w-full h-full object-cover"
                 alt=""
               />
               <div className="absolute w-full h-full  bg-gradient-to-t from-black/60 group-hover:from-black/90 transition-color duration-700 delay-100 top-0 right-0"></div>
               <div className=" overflow-hidden absolute w-full h-full bottom-0 right-0 p-5 translate-y-[9rem] group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-end text-white ">
                 <h1 className="text-white font-bold text-xl mb-4">
-                  {item.title}
+                  {service.title}
                 </h1>
                 <div className=" opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <p className="mb-5 ">{item.short_desc}</p>
+                  <p className="mb-5 ">{service.short_desc}</p>
                   <div>
                     <Button
                       className="bg-highlightColor text-white"

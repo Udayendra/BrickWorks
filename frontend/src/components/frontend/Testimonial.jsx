@@ -1,10 +1,10 @@
 import React from "react";
 import Slider from "react-slick";
-import img1 from '../../assets/images/pexels-sindre-fs-1040880.jpg'
-import img2 from '../../assets/images/pexels-pixabay-220453.jpg'
-import img4 from '../../assets/images/pexels-kampus-5920774.jpg'
-import img3 from '../../assets/images/voyage-pro-ZS9DlF_YBSM-unsplash.jpg'
-import img5 from '../../assets/images/pexels-olly-3783725.jpg'
+import img1 from "../../assets/images/pexels-sindre-fs-1040880.jpg";
+import img2 from "../../assets/images/pexels-pixabay-220453.jpg";
+import img4 from "../../assets/images/pexels-kampus-5920774.jpg";
+import img3 from "../../assets/images/voyage-pro-ZS9DlF_YBSM-unsplash.jpg";
+import img5 from "../../assets/images/pexels-olly-3783725.jpg";
 
 const testimonialData = [
   {
@@ -107,8 +107,11 @@ const Testimonial = () => {
       <div className="slider-container my-5 mb-10 ">
         <Slider {...settings}>
           {testimonialData.map((data, index) => (
-            <div key={index} className="max-w-[18rem] p-6 bg-white border border-gray-200 rounded-xl shadow-custom-light m-4 ">
-              <div className="border-b-2 pb-4">
+            <div
+              key={index}
+              className="max-w-[18rem] p-6 bg-white border border-gray-200 rounded-2xl shadow-custom-light m-4 hover:border-highlightColor transition-colors duration-300 "
+            >
+              <div className="border-b-2 pb-4 border-highlightColor/50">
                 <p className="text-yellow-500 mb-3">⭐⭐⭐⭐⭐</p>
                 <p className="font-normal text-textColor">{data.description}</p>
               </div>

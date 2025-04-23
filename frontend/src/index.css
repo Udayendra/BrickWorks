@@ -23,3 +23,104 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* Gradient animation for background */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+/* Fade in animation for text */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* @layer utilities {
+  .animate-blob {
+    animation: blob 8s infinite ease-in-out;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  @keyframes blob {
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+      border-radius: 40% 60% 60% 40% / 50% 50% 40% 60%;
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+      border-radius: 70% 30% 50% 50% / 60% 40% 60% 40%;
+    }
+  }
+} */
+
+@keyframes blobMove1 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(500px, 100px) scale(1.2);
+  }
+  66% {
+    transform: translate(200px, -200px) scale(0.95);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+@keyframes blobMove2 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(200px, -200px) scale(0.95);
+  }
+  66% {
+    transform: translate(500px, 700px) scale(1.2);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.blob1 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  animation: blobMove1 20s ease-in-out infinite;
+}
+.blob2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  animation: blobMove2 20s ease-in-out infinite;
+}

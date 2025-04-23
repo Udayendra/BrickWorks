@@ -16,7 +16,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 class ServiceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the service.
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new service.
      */
     public function create()
     {
@@ -36,12 +36,18 @@ class ServiceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created service in storage.
      */
     public function store(Request $request)
     {
-        $request->merge(['slug' => Str::slug($request->slug)]);
-        $validator = Validator::make($request->all(), [
+        // $request->merge(['slug' => Str::slug($request->slug)]);
+        
+        $slug = Str::slug(($request->slug));
+
+        $validator = Validator::make([
+            'title'=>$request->title,
+            'slug'=>$slug
+        ], [
             'title' => 'required',
             'slug' => 'required|unique:services,slug'
         ]);
@@ -87,7 +93,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified service.
      */
     public function show($id)
     {
@@ -105,7 +111,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified service.
      */
     public function edit(Service $service)
     {
@@ -113,7 +119,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified service in storage.
      */
     public function update(Request $request, $id)
     {
@@ -201,7 +207,7 @@ class ServiceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified service from storage.
      */
     public function destroy($id)
     {

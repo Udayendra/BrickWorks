@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ServiceController;
@@ -25,7 +26,10 @@ Route::get('latest-project',[ViewProjectController::class,'latestProject']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logout', [AuthenticationController::class, 'logout']);
-
+    
+    // temp-image api
+    Route::post('temp-image', [TempImageController::class, 'store']);
+    
     // services api
     Route::post('services', [ServiceController::class, 'store']);
     Route::get('services', [ServiceController::class, 'index']);
@@ -39,8 +43,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('projects/{id}',[ProjectController::class,'update']);
     Route::get('projects/{id}',[ProjectController::class,'show']);
     Route::delete('projects/{id}', [ProjectController::class, 'destroy']);
+
+    // articles api 
+
+    Route::get('articles',[ArticleController::class,'index']);
+    Route::put('articles',[ArticleController::class,'store']);
     
 
-    // temp-image api
-    Route::post('temp-image', [TempImageController::class, 'store']);
 });

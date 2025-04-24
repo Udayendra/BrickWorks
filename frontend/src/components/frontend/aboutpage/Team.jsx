@@ -48,10 +48,10 @@ const Team = () => {
 
   return (
     <div className="commonContainer py-16 text-center ">
-          <h2 className="text-4xl font-semibold text-gray-800 mb-8">
+          <h2 className="text-4xl font-semibold text-gray-800 mb-10">
             Meet Our Team
           </h2>
-          <div className="flex flex-wrap justify-center gap-10">
+          <div className="flex flex-wrap justify-center gap-10 mb-10">
             {teamMembers.map((member, index) => (
               <div
                 key={index}

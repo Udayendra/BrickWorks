@@ -7,6 +7,9 @@ import img3 from "../../../assets/images/construction42.jpg";
 import img4 from "../../../assets/images/building-contracting.jpg";
 import Button from "../Button";
 import { apiUrl, projectImageUrl } from "../../common/http";
+import WordCountEllipsis from "../../common/WordCountEllipsis";
+import { FaArrowRightLong } from "react-icons/fa6";
+import AnimatedBackground from "../AnimatedBackground";
 
 const ourProjects = [
   {
@@ -136,23 +139,24 @@ const Project = () => {
         </div>
       </div>
 
-      <div className="bg-accentColor/20 py-10 flex flex-col items-center justify-center ">
-        <div className="flex flex-col items-center justify-center commonContainer">
-          <h1 className="font-semibold text-highlightColor text-xl">
-            Our Projects
-          </h1>
-          <p className="text-[2rem] md:text-[2.5rem] font-semibold text-textColor text-center">
-            Building Dreams into Reality
-          </p>
-          <p className="text-sm text-textColor text-center max-w-2xl">
-            Discover our work in residential, commercial, and industrial spaces.
-            Each project reflects our commitment to quality, innovation, and the
-            vision of our clients.
-          </p>
-        </div>
+      <AnimatedBackground>
+        <div className="bg-accentColr/20 py-10 flex flex-col items-center min-h-screen justify-center ">
+          <div className="text-center mb-20 space-y-3">
+            <h2 className="text-highlightColor text-xl font-semibold">
+              Our Projects
+            </h2>
+            <h1 className="text-3xl md:text-4xl font-bold text-textColor mb-2">
+              Explore Our Diverse Range of Projects
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We specialize in residential, commercial, and infrastructure
+              projects with unmatched precision and attention to quality.
+            </p>
+          </div>
 
-        {/*----------------- projects ----------------- */}
-        <div className="commonContainer py-10 w-full flex flex-wrap justify-center">
+          {/*----------------- projects ----------------- */}
+
+          {/* <div className="commonContainer py-10 w-full flex flex-wrap justify-center">
           {viewProject.map((project, index) => (
             <div
               key={index}
@@ -180,8 +184,43 @@ const Project = () => {
               </div>
             </div>
           ))}
+        </div> */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {viewProject.map((project, index) => (
+              <div
+                key={index}
+                className="relative w-[22rem] h-[28rem] rounded-2xl overflow-hidden group border-2 border-gray-400 hover:border-highlightColor transition-all duration-200"
+              >
+                <img
+                  src={projectImageUrl + project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute w-full h-full bg-gradient-to-t from-black/60 group-hover:opacity-0 transition-opacity duration-700 delay-100 top-0 right-0"></div>
+                <div className="absolute top-[28rem] left-[8rem] w-[100px] h-[100px] rounded-full bg-highlightColor group-hover:top-[13rem] group-hover:w-[800px] group-hover:h-[800px] group-hover:-left-60 group-hover:rounded-full transition-all duration-500 ease-in-out"></div>
+                <div className="absolute overflow-hidden w-full h-full bottom-0 right-0 p-5 translate-y-[8rem] group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-end text-white">
+                  <h1 className="text-white font-bold text-xl mb-4">
+                    {project.title}
+                  </h1>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-300">
+                    <div className="mb-5">
+                      {" "}
+                      <WordCountEllipsis
+                        shortDesc={project.desc || project.short_desc}
+                        maxWords={8}
+                      />{" "}
+                    </div>
+                    <button className="flex items-center justify-center text-white text-lg font-semibold transition-all duration-300 group/btn space-x-2 border-2 border-white py-2 px-4 rounded-full hover:text-highlightColor hover:bg-white">
+                      <div>Read more</div>
+                      <FaArrowRightLong className="translate-x-0 group-hover/btn:translate-x-2 transition-transform duration-300" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </AnimatedBackground>
 
       <Footer />
     </div>

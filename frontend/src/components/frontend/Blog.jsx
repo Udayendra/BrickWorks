@@ -47,14 +47,13 @@ const Blog = () => {
       {/* <div className="bg-accentColor/20 py-10"> */}
       <div className="flex flex-col items-center justify-center commonContainer">
         <h1 className="font-semibold text-highlightColor text-xl">
-          Why Choose Us?
+        Our Blog
         </h1>
         <p className="text-[2rem] md:text-[2.5rem] font-semibold text-textColor text-center">
-          Excellence in Construction Services
+        Thoughts & Updates from the Field
         </p>
         <p className="text-sm text-textColor text-center max-w-2xl">
-          Committed to quality and innovation, we deliver tailored construction
-          solutions that exceed expectations.
+        Explore industry insights, behind-the-scenes stories, and valuable knowledge from our construction journey.
         </p>
       </div>
       <div className="commonContainer flex flex-wrap items-center justify-center gap-5">
@@ -85,8 +84,8 @@ const Blog = () => {
         ))}
       </div>
       <div className="flex items-center justify-center pt-5">
-        <button className="bg-highlightColor text-white text-lg px-8 py-3 rounded-full font-semibold border-2 border-highlightColor hover:text-highlightColor hover:bg-white transition-all duration-300">
-          View all blogs
+        <button className="bg-highlightColor text-white text-lg px-8 py-3 rounded-full font-semibold border-2 border-highlightColor hover:text-highlightColor hover:bg-transparent transition-all duration-300">
+          View All Blogs
         </button>
       </div>
     </div>

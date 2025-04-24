@@ -39,7 +39,7 @@
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradientAnimation 15s ease infinite;
+  animation: gradientAnimation 5s ease infinite;
 }
 
 /* Fade in animation for text */

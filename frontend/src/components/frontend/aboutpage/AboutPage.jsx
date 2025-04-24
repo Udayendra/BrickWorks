@@ -3,7 +3,7 @@ import Navbar from "../../common/Navbar";
 import Aboutus from "../../frontend/Aboutus";
 import Footer from "../../common/Footer";
 import Team from "./Team";
-
+import AnimatedBackground from "../AnimatedBackground";
 
 const AboutPage = () => {
   return (
@@ -30,10 +30,11 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
-      <Aboutus />
-      <div className="bg-gray-100 py-10">
-        <Team/>
-      </div>
+      <AnimatedBackground>
+        <Aboutus />
+          <Team />
+        
+      </AnimatedBackground>
       <Footer />
     </div>
   );

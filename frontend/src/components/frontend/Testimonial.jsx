@@ -94,14 +94,14 @@ const Testimonial = () => {
     <div className="commonContainer">
       <div className="flex flex-col items-center justify-center commonContainer">
         <h1 className="font-semibold text-highlightColor text-xl">
-          Why Choose Us?
+          What Our Clients Say
         </h1>
         <p className="text-[2rem] md:text-[2.5rem] font-semibold text-textColor text-center">
-          Excellence in Construction Services
+          Trusted Voices, Proven Results
         </p>
         <p className="text-sm text-textColor text-center max-w-2xl">
-          Committed to quality and innovation, we deliver tailored construction
-          solutions that exceed expectations.
+          Discover how we’ve turned visions into reality through exceptional
+          craftsmanship and unwavering dedication.
         </p>
       </div>
       <div className="slider-container my-5 mb-10 ">

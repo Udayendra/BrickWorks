@@ -7,6 +7,9 @@ import img3 from "../../../assets/images/construction42.jpg";
 import img4 from "../../../assets/images/building-contracting.jpg";
 import Button from "../Button";
 import { apiUrl, serviceImageUrl } from "../../common/http";
+import AnimatedBackground from "../AnimatedBackground";
+import WordCountEllipsis from "../../common/WordCountEllipsis";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const ourServices = [
   {
@@ -107,51 +110,86 @@ const ServicesPage = () => {
         </div>
       </div>
 
-      <div className="bg-accentColor/20 py-10 flex flex-col items-center justify-center ">
-        <div className="flex flex-col items-center justify-center commonContainer">
-          <h1 className="font-semibold text-highlightColor text-xl">
-            Our Services
-          </h1>
-          <p className="text-[2rem] md:text-[2.5rem] font-semibold text-textColor text-center">
-            Tailored Construction Solutions
-          </p>
-          <p className="text-sm text-textColor text-center max-w-2xl">
-            Offering expert residential, commercial, and industrial construction
-            services designed with quality and precision to meet diverse project
-            needs.
-          </p>
-        </div>
-        {/*----------------- services ----------------- */}
-        <div className="commonContainer py-10 w-full flex flex-wrap justify-center">
-          {viewServices.map((service, index) => (
-            <div
-              key={index}
-              className="w-[22rem] h-[28rem] rounded-xl m-3 relative overflow-hidden group"
-            >
-              <img
-                src={serviceImageUrl + service.image}
-                className="w-full h-full object-cover"
-                alt=""
-              />
-              <div className="absolute w-full h-full  bg-gradient-to-t from-black/60 group-hover:from-black/90 transition-color duration-700 delay-100 top-0 right-0"></div>
-              <div className=" overflow-hidden absolute w-full h-full bottom-0 right-0 p-5 translate-y-[9rem] group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-end text-white ">
-                <h1 className="text-white font-bold text-xl mb-4">
-                  {service.title}
-                </h1>
-                <div className=" opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <p className="mb-5 ">{service.short_desc}</p>
-                  <div>
-                    <Button
-                      className="bg-highlightColor text-white"
-                      title="Read More"
-                    />
+      <AnimatedBackground>
+        <div className="bg-ccentColor/20 py-10 flex flex-col items-center min-h-screen justify-center ">
+          <div className="text-center mb-20 space-y-3">
+            <h2 className="text-highlightColor text-xl font-semibold">
+              Our Services
+            </h2>
+            <h1 className="text-3xl md:text-4xl font-bold text-textColor mb-2">
+              Strong Foundations, Smart Solutions
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              From planning to execution, we build with precision. Explore our
+              core construction services tailored to quality and durability.
+            </p>
+          </div>
+          {/*----------------- services ----------------- */}
+          {/* <div className="commonContainer py-10 w-full flex flex-wrap justify-center">
+            {viewServices.map((service, index) => (
+              <div
+                key={index}
+                className="w-[22rem] h-[28rem] rounded-xl m-3 relative overflow-hidden group"
+              >
+                <img
+                  src={serviceImageUrl + service.image}
+                  className="w-full h-full object-cover"
+                  alt=""
+                />
+                <div className="absolute w-full h-full  bg-gradient-to-t from-black/60 group-hover:from-black/90 transition-color duration-700 delay-100 top-0 right-0"></div>
+                <div className=" overflow-hidden absolute w-full h-full bottom-0 right-0 p-5 translate-y-[9rem] group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-end text-white ">
+                  <h1 className="text-white font-bold text-xl mb-4">
+                    {service.title}
+                  </h1>
+                  <div className=" opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <p className="mb-5 ">{service.short_desc}</p>
+                    <div>
+                      <Button
+                        className="bg-highlightColor text-white"
+                        title="Read More"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div> */}
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {viewServices.map((service, index) => (
+              <div
+                key={index}
+                className="relative w-[22rem] h-[28rem] rounded-2xl overflow-hidden group border-2 border-gray-400 hover:border-highlightColor transition-all duration-200"
+              >
+                <img
+                  src={serviceImageUrl + service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute w-full h-full  bg-gradient-to-t from-black/60 group-hover:opacity-0 transition-opacity duration-700 delay-100 top-0 right-0"></div>
+                <div className=" absolute top-[28rem] left-[8rem] w-[100px] h-[100px] rounded-full bg-highlightColor group-hover:top-[13rem] group-hover:w-[800px] group-hover:h-[800px] group-hover:-left-60 group-hover:rounded-full transition-all duration-500 ease-in-out"></div>
+                <div className="absolute overflow-hidden  w-full h-full bottom-0 right-0 p-5 translate-y-[8rem] group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-end text-white ">
+                  <h1 className="text-white font-bold text-xl mb-4">
+                    {service.title}
+                  </h1>
+                  <div className=" opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-300 ">
+                    <div className="mb-5">
+                      <WordCountEllipsis
+                        shortDesc={service.short_desc || service.desc}
+                        maxWords={8}
+                      />
+                    </div>
+                    <button className="flex items-center justify-center text-white text-lg font-semibold  transition-all duration-300 group/btn space-x-2 border-2 border-white py-2 px-4 rounded-full hover:text-highlightColor hover:bg-white">
+                      <div>Read more</div>
+                      <FaArrowRightLong className="translate-x-0 group-hover/btn:translate-x-2 transition-transform duration-300" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </AnimatedBackground>
 
       <Footer />
     </div>

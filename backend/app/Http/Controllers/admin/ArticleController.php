@@ -33,7 +33,7 @@ class ArticleController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()
+                'error' => $validator->errors()
             ], 422);
         }
 
@@ -54,11 +54,76 @@ class ArticleController extends Controller
     }
 
     // update articles 
-    public function update() {}
+    public function update(Request $request, $id)
+    {
+        $article = Article::find($id);
+        if (!$article) {
+
+            return response()->json([
+                "status" => false,
+                "message" => "Article not found"
+            ]);
+        }
+
+        $slug = Str::slug($request->slug);
+        $validator = Validator::make(
+            ['title' => $request->title, 'slug' => $slug],
+            ['title' => 'required', 'slug' => 'required|unique:articles,slug']
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'error' => $validator->errors()
+            ], 422);
+        }
+
+        $article->title = $request->title;
+        $article->slug = $slug;
+        $article->author = $request->author;
+        $article->content = $request->content;
+        $article->image = $request->image;
+        $article->status = $request->status;
+        $article->save();
+
+        return response()->json([
+            "status" => true,
+            "data" => "Article updated successfully"
+        ]);
+    }
 
     // show specific article
-    public function show() {}
+    public function show($id)
+    {
+        $article = Article::find($id);
+        if (!$article) {
+            return response()->json([
+                "status" => false,
+                "message" => "Article not found"
+            ]);
+        }
+        return response()->json([
+            "status" => true,
+            "data" => $article
+        ]);
+    }
 
     // delete article 
-    public function destroy() {}
+    public function destroy($id)
+    {
+        $article = Article::find($id);
+        if (!$article) {
+            return response()->json([
+                "status" => false,
+                "message" => "Article not found"
+            ]);
+        }
+
+        $article->delete();
+
+        return response()->json([
+            "status" => true,
+            "data" => "Article deleted successfully"
+        ]);
+    }
 }

@@ -11,7 +11,7 @@ class ViewServiceController extends Controller
     //view all services
     public function index()
     {
-        $service = Service::where("status",1)->orderBy('created_at','desc')->get();
+        $service = Service::where("status", 1)->orderBy('created_at', 'desc')->get();
         return response()->json([
             "status" => true,
             "data" => $service
@@ -19,11 +19,12 @@ class ViewServiceController extends Controller
     }
 
     // view latest 
-    public function latestService(Request $request){
-        $service = Service::where("status",1)->take($request->get('limit'))->orderBy('created_at','desc')->get();
+    public function latestService(Request $request)
+    {
+        $service = Service::where("status", 1)->take($request->get('limit'))->orderBy('created_at', 'desc')->get();
         return response()->json([
-            "status"=> true,
-            "data"=> $service
+            "status" => true,
+            "data" => $service
         ]);
     }
 }

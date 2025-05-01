@@ -4,9 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\TempImage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ArticleController extends Controller
 {
@@ -45,6 +49,24 @@ class ArticleController extends Controller
         $article->content = $request->content;
         $article->image = $request->image;
         $article->status = $request->status;
+
+        if ($request->imageId > 0) {
+            $tempImage = TempImage::find($request->imageId);
+            if ($tempImage != null) {
+                $extArray = explode('.', $tempImage->name);
+                $ext = last($extArray);
+                $fileName = strtotime('now') . $article->id . '.' . $ext;
+
+                $sourcepath = public_path('uploads/temp/' . $tempImage->name);
+                $despath = public_path('uploads/articles/' . $fileName);
+                $manager = new ImageManager(Driver::class);
+                $image = $manager->read($sourcepath);
+                $image->scaleDown(1200);
+                $image->save($despath);
+
+                $article->image = $fileName;
+            }
+        }
         $article->save();
 
         return response()->json([
@@ -84,6 +106,39 @@ class ArticleController extends Controller
         $article->content = $request->content;
         $article->image = $request->image;
         $article->status = $request->status;
+
+        if ($request->imageId) {
+            $oldImage = $article->image;
+            $tempImage = TempImage::find($request->imageId);
+
+            if ($tempImage) {
+                $ext = pathinfo($tempImage->name, PATHINFO_EXTENSION);
+                $fileName = strtotime('now') . $article->id . '.' . $ext;
+
+                $sourcepath = public_path('uploads/temp/' . $tempImage->name);
+                $despath = public_path('uploads/articles/' . $fileName);
+                try {
+                    $manager = new ImageManager(Driver::class);
+                    $image = $manager->read($sourcepath);
+                    $image->scaleDown(1200);
+                    $image->save($despath);
+
+                    $article->image = $fileName;
+                    // $article->save();
+
+                    if ($oldImage != null) {
+                        File::delete(public_path('uploads/articles/' . $oldImage));
+                    }
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Image processing failed',
+                        'error' => $e->getMessage()
+                    ], 500);
+                }
+            }
+        }
+
         $article->save();
 
         return response()->json([

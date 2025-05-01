@@ -1,11 +1,20 @@
-import React from "react";
+// import React from 'react'
+
+// const CreateTestimonials = () => {
+//   return (
+//     <div>CreateTestimonials</div>
+//   )
+// }
+
+// export default CreateTestimonials
+
+import React, { useState, useEffect } from "react";
 import Loading from "../loading";
-import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 
-const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
+const CreateTestimonials = ({ createOpen, onClose, onCreateArticle }) => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [imageId, setImageId] = useState(null);
@@ -22,7 +31,6 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
     } else {
       document.documentElement.style.overflow = "auto";
     }
-
     return () => {
       document.documentElement.style.overflow = "auto";
     };
@@ -36,7 +44,7 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
       const newData = { ...data, imageId: imageId };
       console.log(newData);
 
-      const res = await fetch(apiUrl + "projects", {
+      const res = await fetch(apiUrl + "articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +55,7 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
       const result = await res.json();
       if (result.status) {
         toast.success(result.message);
-        await onCreateProject();
+        await onCreateArticle();
         reset();
         onClose();
       } else {
@@ -60,7 +68,7 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
     }
   };
 
-  const handleimage = async (e) => {
+  const handleImage = async (e) => {
     const formData = new FormData();
     const image = e.target.files[0];
     formData.append("image", image);
@@ -90,23 +98,23 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
     <div className="z-30 w-full h-full bg-black/20 fixed top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
       <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
-          <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
+          <h3 className="font-semibold mb-3 text-xl">Create an Article</h3>
         </header>
         <main>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
-                  htmlFor="name"
+                  htmlFor="title"
                   className="block mb-2 text-sm font-medium text-textColor"
                 >
-                  Name
+                  Title
                 </label>
                 <input
                   {...register("title")}
                   required
                   type="text"
-                  id="name"
+                  id="title"
                   className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
                 />
               </div>
@@ -130,85 +138,36 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
-                  htmlFor="sector"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Sector
-                </label>
-                <input
-                  {...register("sector")}
-                  required
-                  type="text"
-                  id="sector"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="location"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Location
-                </label>
-                <input
-                  {...register("location")}
-                  required
-                  type="text"
-                  id="location"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mb-5">
-                <label
-                  htmlFor="construction_type"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Construction Type
-                </label>
-                <input
-                  {...register("construction_type")}
-                  required
-                  type="text"
-                  id="construction_type"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-              <div className="mb-5">
-                <label
                   htmlFor="status"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block mb-2 text-sm font-medium text-textColor"
                 >
                   Status
                 </label>
                 <select
                   {...register("status")}
-                  name="status"
                   id="status"
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm transition-all duration-200 ease-in-out hover:border-gray-400"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
                 >
-                  <option value="1">Active</option>
-                  <option value="0">Block</option>
+                  <option value="1">Published</option>
+                  <option value="0">Draft</option>
                 </select>
               </div>
-            </div>
 
-            <div className="mb-5">
-              <label
-                htmlFor="short_description"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Short description
-              </label>
-              <input
-                {...register("short_desc")}
-                required
-                type="text"
-                id="short_description"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-              />
+              <div className="mb-5">
+                <label
+                  htmlFor="author"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Author
+                </label>
+                <input
+                  {...register("author")}
+                  required
+                  type="text"
+                  id="author"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
             </div>
 
             <div className="mb-5">
@@ -226,34 +185,33 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
                 className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
               ></textarea>
             </div>
-            
+
             <div className="mb-5">
               <label
-                htmlFor="image"
+                htmlFor="upload"
                 className="block mb-2 text-sm font-medium text-textColor"
               >
-                Upload image
+                Upload Cover Image
               </label>
-              <input required type="file" id="image" onChange={handleimage} />
+              <input required type="file" id="upload" onChange={handleImage} />
             </div>
+
             <div className="flex justify-end space-x-2 mt-6">
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex items-center justify-center mr-2 border-2 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
+                className="inline-flex items-center justify-center border-2 font-medium rounded-lg text-sm w-auto px-5 py-2.5 transition-all duration-300"
               >
                 Cancel
               </button>
               <button
                 disabled={loading || disabled}
                 type="submit"
-                className="inline-flex items-center justify-center text-white mr-2 bg-highlightColor hover:bg-highlightColor/80 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
+                className="inline-flex items-center justify-center text-white bg-highlightColor hover:bg-highlightColor/80 font-medium rounded-lg text-sm w-auto px-5 py-2.5 transition-all duration-300"
               >
-                Submit{" "}
-                {loading ? (
-                  <Loading className="border-2 border-white w-[20px] h-[20px]" />
-                ) : (
-                  ""
+                Submit
+                {loading && (
+                  <Loading className="border-2 border-white w-[20px] h-[20px] ml-2" />
                 )}
               </button>
             </div>
@@ -264,4 +222,4 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
   );
 };
 
-export default CreateProject;
+export default CreateTestimonials;

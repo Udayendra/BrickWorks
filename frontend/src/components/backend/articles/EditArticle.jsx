@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import Loading from "../loading";
 import { useState } from "react";
 import { set, useForm } from "react-hook-form";
-import { apiUrl, serviceImageUrl, token } from "../../common/http";
+import { apiUrl, imageUrl, projectImageUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 
-const EditServices = ({ editOpen, onClose, onEditService, service }) => {
+const EditProject = ({ editOpen, onClose, onEditArticle, article }) => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [imageId, setImageId] = useState(null);
@@ -18,16 +18,16 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
   } = useForm();
 
   useEffect(() => {
-    if (editOpen && service?.id) {
+    if (editOpen && article?.id) {
       reset({
-        title: service.title,
-        slug: service.slug,
-        short_desc: service.short_desc,
-        content: service.content,
-        status: service.status,
+        title: article.title,
+        slug: article.slug,
+        short_desc: article.short_desc,
+        content: article.content,
+        author: article.author,
       });
-      // console.log(service)
-      fetch(apiUrl + "services/" + service.id, {
+      // console.log(article)
+      fetch(apiUrl + "articles/" + article.id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +36,9 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
         },
       }).then((res) => res.json());
     }
+  }, [editOpen, article?.id, reset]);
+  // console.log(article)
+  useEffect(() => {
     if (editOpen) {
       document.documentElement.style.overflow = "hidden"; // Prevent background scroll
     } else {
@@ -45,7 +48,7 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
     return () => {
       document.documentElement.style.overflow = "auto"; // Cleanup on unmount
     };
-  }, [editOpen, service?.id, reset]);
+  }, [editOpen]);
 
   if (!editOpen) return;
 
@@ -53,7 +56,7 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
     try {
       setLoading(true);
       const newData = { ...data, imageId: imageId };
-      const res = await fetch(apiUrl + "services/" + service.id, {
+      const res = await fetch(apiUrl + "articles/" + article.id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -64,11 +67,16 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
       const result = await res.json();
       if (result.status) {
         toast.success(result.message);
-        await onEditService();
+        console.log(result);
+        await onEditArticle();
         reset();
         onClose();
       } else {
-        toast.error(result.message);
+        if (result.error && result.error.slug) {
+          toast.error(result.error.slug[0]);
+        } else if (result.message) {
+          toast.error(result.message);
+        }
       }
     } catch (err) {
       toast.error("Something went wrong. Please try again");
@@ -109,34 +117,34 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
       slug: " ",
       short_desc: " ",
       content: "",
+      author: "",
     });
   };
 
   return (
-    <div className="z-10 w-full h-full bg-black/20 fixed left-0 top-0 flex justify-center overflow-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[40rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-30 w-full h-full bg-black/20 absolute top-0 left-0 in flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
-          <h3 className="font-semibold mb-3 text-xl">Edit Service</h3>
+          <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
         </header>
-        <main className="h-full">
-          <form onSubmit={handleSubmit(onSubmit)} className="">
-          <div className="mb-5">
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Name
-              </label>
-              <input
-                {...register("title")}
-                required
-                type="text"
-                id="name"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Name"
-              />
-            </div>
+        <main>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-4">
+              <div className="mb-5">
+                <label
+                  htmlFor="title"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Title
+                </label>
+                <input
+                  {...register("title")}
+                  required
+                  type="text"
+                  id="title"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
               <div className="mb-5">
                 <label
                   htmlFor="slug"
@@ -150,43 +158,43 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
                   type="text"
                   id="slug"
                   className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                  // placeholder="Slug"
                 />
               </div>
+            </div>
 
+            <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
                   htmlFor="status"
-                  className="block text-sm font-medium text-textColor mb-1"
+                  className="block mb-2 text-sm font-medium text-textColor"
                 >
                   Status
                 </label>
                 <select
                   {...register("status")}
-                  name="status"
                   id="status"
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm  transition-all duration-200 ease-in-out hover:border-gray-400"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
                 >
-                  <option value="1">Active</option>
-                  <option value="0">Block</option>
+                  <option value="1">Published</option>
+                  <option value="0">Draft</option>
                 </select>
               </div>
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="short_description"
-                className="block mb-2 text-sm font-medium text-textColor"
-              >
-                Short description
-              </label>
-              <input
-                {...register("short_desc")}
-                required
-                type="text"
-                id="short_description"
-                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+
+              <div className="mb-5">
+                <label
+                  htmlFor="author"
+                  className="block mb-2 text-sm font-medium text-textColor"
+                >
+                  Author
+                </label>
+                <input
+                  {...register("author")}
+                  required
+                  type="text"
+                  id="author"
+                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                />
+              </div>
             </div>
 
             <div className="mb-5">
@@ -205,48 +213,42 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
               ></textarea>
             </div>
             <div className="mb-5 grid grid-cols-2">
-              <div>
+              <div className="">
                 <label
-                  htmlFor="image"
+                  htmlFor="content"
                   className="block mb-2 text-sm font-medium text-textColor"
                 >
                   Upload image
                 </label>
                 <input
-                  // {...register("image")}
                   required
                   type="file"
-                  id="image"
+                  id="content"
                   onChange={handleimage}
-                  // className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                  // placeholder="Slug"
                 />
               </div>
               <div className="flex justify-end">
                 <img
-                  src={serviceImageUrl + service.image}
-                  alt="Service image"
+                  src={imageUrl + "/articles/" + article.image}
+                  alt="article image"
                   className="h-24 w-24 object-cover"
                 />
               </div>
             </div>
-            <div className="flex justify-end space-x-2 mt-10">
+            <div className="flex justify-end space-x-2 mt-6">
               <button
                 type="button"
-                onClick={() => {
-                  onClose();
-                  resetForm();
-                }}
-                className="inline-flex items-center justify-center  mr-2 border-2 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
+                onClick={onClose}
+                className="inline-flex items-center justify-center mr-2 border-2 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
               >
                 Cancel
               </button>
               <button
-                disabled={loading}
+                disabled={loading || disabled}
                 type="submit"
-                className="inline-flex items-center justify-center text-white mr-2 bg-highlightColor hover:bg-highlightColor/80  focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
+                className="inline-flex items-center justify-center text-white mr-2 bg-highlightColor hover:bg-highlightColor/80 focus:outline-none font-medium rounded-lg text-sm w-auto sm:w-auto px-5 py-2.5 text-center transition-all duration-300"
               >
-                Update{" "}
+                Submit{" "}
                 {loading ? (
                   <Loading className="border-2 border-white w-[20px] h-[20px]" />
                 ) : (
@@ -261,4 +263,4 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
   );
 };
 
-export default EditServices;
+export default EditProject;

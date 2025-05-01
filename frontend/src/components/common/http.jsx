@@ -1,5 +1,5 @@
 export const apiUrl = "http://localhost:8000/api/";
-export const imageUrl = "http://localhost:8000/uploads/services/";
+export const imageUrl = "http://localhost:8000/uploads/";
 export const serviceImageUrl = "http://localhost:8000/uploads/services/";
 export const projectImageUrl = "http://localhost:8000/uploads/projects/";
 export const token = () =>{

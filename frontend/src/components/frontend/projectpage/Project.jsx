@@ -156,35 +156,6 @@ const Project = () => {
 
           {/*----------------- projects ----------------- */}
 
-          {/* <div className="commonContainer py-10 w-full flex flex-wrap justify-center">
-          {viewProject.map((project, index) => (
-            <div
-              key={index}
-              className="w-[22rem] h-[28rem] rounded-xl m-3 relative overflow-hidden group"
-            >
-              <img
-                src={projectImageUrl + project.image}
-                className="w-full h-full object-cover"
-                alt=""
-              />
-              <div className="absolute w-full h-full  bg-gradient-to-t from-black/60 group-hover:from-black/90 transition-color duration-700 delay-100 top-0 right-0"></div>
-              <div className=" overflow-hidden absolute w-full h-full bottom-0 right-0 p-5 translate-y-[9rem] group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-end text-white ">
-                <h1 className="text-white font-bold text-xl mb-4">
-                  {project.title}
-                </h1>
-                <div className=" opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <p className="mb-5 ">{project.short_desc}</p>
-                  <div>
-                    <Button
-                      className="bg-highlightColor text-white"
-                      title="Read More"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {viewProject.map((project, index) => (
               <div

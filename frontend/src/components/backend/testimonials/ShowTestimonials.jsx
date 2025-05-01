@@ -3,23 +3,23 @@ import { SideBar } from "../SideBar";
 import Footer from "../../common/Footer";
 import Button from "../../frontend/Button";
 import { apiUrl, token } from "../../common/http";
-import CreateArticle from "./CreateArticle";
-import EditArticle from "./EditArticle";
+// import CreateArticle from "./CreateArticle";
+// import EditArticle from "./EditArticle";
 import Loading from "../loading";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const ShowArticle = () => {
-  const [articles, setArticles] = useState([]);
+const ShowTestimonials = () => {
+  const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [createOpen, setCreateOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [selectedArticle, setSelectedArticle] = useState(null);
+  const [selectedTestimonial, setSelectedTestimonial] = useState(null);
 
-  const fetchArticles = async () => {
+  const fetchTestimonials = async () => {
     try {
-      const res = await fetch(apiUrl + "articles", {
+      const res = await fetch(apiUrl + "testimonials", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,20 +31,20 @@ const ShowArticle = () => {
       if (!result.status) {
         toast.error(result.message);
       } else {
-        setArticles(result.data);
+        setTestimonials(result.data);
       }
     } catch (err) {
       console.error(err);
-      toast.error("Failed to fetch articles");
+      toast.error("Failed to fetch testimonials");
     } finally {
       setLoading(false);
     }
   };
 
-  const deleteArticle = async (id) => {
-    if (!confirm("Are you sure you want to delete this article?")) return;
+  const deleteTestimonial = async (id) => {
+    if (!confirm("Are you sure you want to delete this testimonial?")) return;
     try {
-      const res = await fetch(apiUrl + "articles/" + id, {
+      const res = await fetch(apiUrl + "testimonials/" + id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const ShowArticle = () => {
         toast.error(result.message);
       } else {
         toast.success(result.message);
-        fetchArticles();
+        fetchTestimonials();
       }
     } catch (err) {
       console.error(err);
@@ -66,7 +66,7 @@ const ShowArticle = () => {
   };
 
   useEffect(() => {
-    fetchArticles();
+    fetchTestimonials();
   }, []);
 
   return (
@@ -82,54 +82,52 @@ const ShowArticle = () => {
             <>
               <header className="w-full flex justify-between items-center border-b-2 pb-4">
                 <h2 className="text-2xl font-semibold text-gray-800">
-                  Articles
+                  Testimonials
                 </h2>
                 <Button
                   title={"Create"}
                   className="bg-highlightColor"
                   onClick={() => setCreateOpen(true)}
                 />
-                <CreateArticle
+                {/* <CreateArticle
                   createOpen={createOpen}
                   onClose={() => setCreateOpen(false)}
-                  onCreateArticle={fetchArticles}
-                />
+                  onCreateArticle={fetchTestimonials}
+                /> */}
               </header>
 
               <table className="w-full mt-6 table-auto border-collapse">
                 <thead>
                   <tr className="bg-gray-100 text-gray-700">
                     <th className="border px-4 py-3 text-left">ID</th>
-                    <th className="border px-4 py-3 text-left">Title</th>
-                    <th className="border px-4 py-3 text-left">Slug</th>
-                    <th className="border px-4 py-3 text-left">Author</th>
+                    <th className="border px-4 py-3 text-left">Testimonial</th>
+                    <th className="border px-4 py-3 text-left">Citation</th>
                     <th className="border px-4 py-3 text-left">Status</th>
                     <th className="border px-4 py-3 text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {articles.length > 0 ? (
-                    articles.map((article, index) => (
+                  {testimonials.length > 0 ? (
+                    testimonials.map((item, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="border px-4 py-3">{article.id}</td>
-                        <td className="border px-4 py-3">{article.title}</td>
-                        <td className="border px-4 py-3">{article.slug}</td>
-                        <td className="border px-4 py-3">{article.author}</td>
+                        <td className="border px-4 py-3">{item.id}</td>
+                        <td className="border px-4 py-3">{item.testimonial}</td>
+                        <td className="border px-4 py-3">{item.citation}</td>
                         <td className="border px-4 py-3">
-                          {article.status === 1 ? "Published" : "Draft"}
+                          {item.status === 1 ? "Blocked" : "Active"}
                         </td>
                         <td className="border px-4 py-3 flex items-center justify-center gap-5">
                           <FiEdit
                             size={20}
                             onClick={() => {
                               setEditOpen(true);
-                              setSelectedArticle(article);
+                              setSelectedTestimonial(item);
                             }}
                             className="text-blue-600 cursor-pointer hover:text-blue-800"
                           />
                           <MdDeleteOutline
                             size={24}
-                            onClick={() => deleteArticle(article.id)}
+                            onClick={() => deleteTestimonial(item.id)}
                             className="text-red-600 cursor-pointer hover:text-red-800"
                           />
                         </td>
@@ -138,7 +136,7 @@ const ShowArticle = () => {
                   ) : (
                     <tr>
                       <td colSpan="6" className="text-center py-10 text-gray-500">
-                        No articles found.
+                        No testimonials found.
                       </td>
                     </tr>
                   )}
@@ -147,16 +145,16 @@ const ShowArticle = () => {
             </>
           )}
         </div>
-        <EditArticle
+        {/* <EditArticle
           editOpen={editOpen}
           onClose={() => setEditOpen(false)}
-          onEditArticle={fetchArticles}
-          article={selectedArticle}
-        />
+          onEditArticle={fetchTestimonials}
+          article={selectedTestimonial}
+        /> */}
       </div>
       <Footer />
     </>
   );
 };
 
-export default ShowArticle;
+export default ShowTestimonials;

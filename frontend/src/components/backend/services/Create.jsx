@@ -133,23 +133,42 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
                   // placeholder="Slug"
                 />
               </div>
+
               <div className="mb-5">
                 <label
-                  htmlFor="short_description"
-                  className="block mb-2 text-sm font-medium text-textColor"
+                  htmlFor="status"
+                  className="block text-sm font-medium text-textColor mb-1"
                 >
-                  Short description
+                  Status
                 </label>
-                <input
-                  {...register("short_desc")}
-                  required
-                  type="text"
-                  id="short_description"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                  // placeholder="Slug"
-                />
+                <select
+                  {...register("status")}
+                  name="status"
+                  id="status"
+                  className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm  transition-all duration-200 ease-in-out hover:border-gray-400"
+                >
+                  <option value="1">Active</option>
+                  <option value="0">Block</option>
+                </select>
               </div>
             </div>
+            <div className="mb-5">
+              <label
+                htmlFor="short_description"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Short description
+              </label>
+              <input
+                {...register("short_desc")}
+                required
+                type="text"
+                id="short_description"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                // placeholder="Slug"
+              />
+            </div>
+
             <div className="mb-5">
               <label
                 htmlFor="content"
@@ -157,35 +176,18 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
               >
                 Content
               </label>
-              <input
+              <textarea
                 {...register("content")}
                 required
-                type="text"
                 id="content"
+                rows="5"
                 className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+              ></textarea>
             </div>
+
             <div className="mb-5">
               <label
-                htmlFor="status"
-                className="block text-sm font-medium text-textColor mb-1"
-              >
-                Status
-              </label>
-              <select
-                {...register("status")}
-                name="status"
-                id="status"
-                className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm  transition-all duration-200 ease-in-out hover:border-gray-400"
-              >
-                <option value="1">Active</option>
-                <option value="0">Block</option>
-              </select>
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="content"
+                htmlFor="image"
                 className="block mb-2 text-sm font-medium text-textColor"
               >
                 Upload image
@@ -194,10 +196,8 @@ const Create = ({ createOpen, onClose, onCreateServices }) => {
                 // {...register("content")}
                 required
                 type="file"
-                id="content"
+                id="image"
                 onChange={handleimage}
-                // className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
               />
             </div>
             <div className="flex justify-end space-x-2 mt-6">

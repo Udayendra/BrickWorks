@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\File;
+
 
 class TestimonialController extends Controller
 {
@@ -125,6 +127,39 @@ class TestimonialController extends Controller
 
         $testimonial->testimonial = $request->testimonial;
         $testimonial->citation = $request->citation;
+
+        if ($request->imageId) {
+            $oldImage = $testimonial->image;
+            $tempImage = TempImage::find($request->imageId);
+
+            if ($tempImage) {
+                $ext = pathinfo($tempImage->name, PATHINFO_EXTENSION);
+                $fileName = strtotime('now') . $testimonial->id . '.' . $ext;
+
+                $sourcepath = public_path('uploads/temp/' . $tempImage->name);
+                $despath = public_path('uploads/testimonials/' . $fileName);
+                try {
+                    $manager = new ImageManager(Driver::class);
+                    $image = $manager->read($sourcepath);
+                    $image->coverDown(300, 300);
+                    $image->save($despath);
+
+                    $testimonial->image = $fileName;
+                    // $testimonial->save();
+
+                    if ($oldImage != null) {
+                        File::delete(public_path('uploads/testimonials/' . $oldImage));
+                    }
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Image processing failed',
+                        'error' => $e->getMessage()
+                    ], 500);
+                }
+            }
+        }
+
         $testimonial->save();
 
         return response()->json([

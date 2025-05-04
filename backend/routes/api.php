@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\front\ViewArticleController;
 use App\Http\Controllers\front\ViewProjectController;
 use App\Http\Controllers\front\ViewServiceController;
+use App\Http\Controllers\front\ViewTestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::get('latest-project', [ViewProjectController::class, 'latestProject']);
 Route::get('view-article', [ViewArticleController::class, 'index']);
 Route::get('latest-article', [ViewArticleController::class, 'latestArticle']);
 
+// getTestimonial
+Route::get('view-testimonial', [ViewTestimonialController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);

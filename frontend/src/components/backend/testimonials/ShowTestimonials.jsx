@@ -3,8 +3,8 @@ import { SideBar } from "../SideBar";
 import Footer from "../../common/Footer";
 import Button from "../../frontend/Button";
 import { apiUrl, token } from "../../common/http";
-// import CreateArticle from "./CreateArticle";
-// import EditArticle from "./EditArticle";
+import CreateTestimonials from "./CreateTestimonials";
+import EditTestimonials from "./EditTestimonials";
 import Loading from "../loading";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
@@ -89,11 +89,11 @@ const ShowTestimonials = () => {
                   className="bg-highlightColor"
                   onClick={() => setCreateOpen(true)}
                 />
-                {/* <CreateArticle
+                <CreateTestimonials
                   createOpen={createOpen}
                   onClose={() => setCreateOpen(false)}
-                  onCreateArticle={fetchTestimonials}
-                /> */}
+                  onCreateTestimonial={fetchTestimonials}
+                />
               </header>
 
               <table className="w-full mt-6 table-auto border-collapse">
@@ -145,12 +145,12 @@ const ShowTestimonials = () => {
             </>
           )}
         </div>
-        {/* <EditArticle
+        <EditTestimonials
           editOpen={editOpen}
           onClose={() => setEditOpen(false)}
-          onEditArticle={fetchTestimonials}
-          article={selectedTestimonial}
-        /> */}
+          onEditTestimonial={fetchTestimonials}
+          testimonials={selectedTestimonial}
+        />
       </div>
       <Footer />
     </>

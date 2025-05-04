@@ -113,8 +113,8 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
   };
 
   return (
-    <div className="z-10 w-full h-full bg-black/20 fixed left-0 top-0 flex justify-center overflow-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[40rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-10 w-full h-full bg-black/20 absolute left-0 top-0 flex justify-center overflow-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[40rem] min-h-[45rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Edit Service</h3>
         </header>

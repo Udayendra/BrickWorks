@@ -122,8 +122,8 @@ const EditProject = ({ editOpen, onClose, onEditArticle, article }) => {
   };
 
   return (
-    <div className="z-30 w-full h-full bg-black/20 absolute top-0 left-0 in flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-30 w-full h-full bg-black/20 absolute top-0 left-0 in flex justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[50rem] min-h-[37rem]  px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
         </header>

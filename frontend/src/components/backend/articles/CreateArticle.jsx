@@ -85,8 +85,8 @@ const CreateArticle = ({ createOpen, onClose, onCreateArticle }) => {
   };
 
   return (
-    <div className="z-30 w-full h-full bg-black/20 fixed top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-30 w-full h-full bg-black/20 fixed top-0 left-0 flex justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[50rem] min-h-[35rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Create an Article</h3>
         </header>

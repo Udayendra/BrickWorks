@@ -65,8 +65,6 @@ const Services = () => {
   // const displayedServices =
   //   latestServices.length > 0 ? latestServices : ourServices;
 
-
-
   return (
     <div className="commonContainer py-20">
       <div className="text-center mb-20 space-y-3">
@@ -89,7 +87,7 @@ const Services = () => {
             className="relative w-[22rem] h-[28rem] rounded-2xl overflow-hidden group border-2 border-gray-400 hover:border-highlightColor transition-all duration-200"
           >
             <img
-              src={item.img}
+              src={imageUrl + "/services/" + item.image}
               alt={item.title}
               className="w-full h-full object-cover"
             />
@@ -101,7 +99,10 @@ const Services = () => {
               </h1>
               <div className=" opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-300 ">
                 <div className="mb-5">
-                  <WordCountEllipsis shortDesc={item.short_desc || item.desc} maxWords={8} />
+                  <WordCountEllipsis
+                    shortDesc={item.short_desc || item.desc}
+                    maxWords={8}
+                  />
                 </div>
                 <button className="flex items-center justify-center text-white text-lg font-semibold  transition-all duration-300 group/btn space-x-2 border-2 border-white py-2 px-4 rounded-full hover:text-highlightColor hover:bg-white">
                   <div>Read more</div>

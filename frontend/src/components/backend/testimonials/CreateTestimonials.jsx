@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";
 
-const CreateTestimonials = ({ createOpen, onClose, onCreateArticle }) => {
+const CreateTestimonials = ({ createOpen, onClose, onCreateTestimonial }) => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [imageId, setImageId] = useState(null);
@@ -42,9 +42,8 @@ const CreateTestimonials = ({ createOpen, onClose, onCreateArticle }) => {
     try {
       setLoading(true);
       const newData = { ...data, imageId: imageId };
-      console.log(newData);
 
-      const res = await fetch(apiUrl + "articles", {
+      const res = await fetch(apiUrl + "testimonials", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +54,7 @@ const CreateTestimonials = ({ createOpen, onClose, onCreateArticle }) => {
       const result = await res.json();
       if (result.status) {
         toast.success(result.message);
-        await onCreateArticle();
+        await onCreateTestimonial();
         reset();
         onClose();
       } else {
@@ -95,96 +94,61 @@ const CreateTestimonials = ({ createOpen, onClose, onCreateArticle }) => {
   };
 
   return (
-    <div className="z-30 w-full h-full bg-black/20 fixed top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-10 w-full h-full bg-black/20 absolute top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[40rem] h-auto  px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
-          <h3 className="font-semibold mb-3 text-xl">Create an Article</h3>
+          <h3 className="font-semibold mb-3 text-xl">Create an Testimoial</h3>
         </header>
         <main>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mb-5">
-                <label
-                  htmlFor="title"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Title
-                </label>
-                <input
-                  {...register("title")}
-                  required
-                  type="text"
-                  id="title"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="slug"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Slug
-                </label>
-                <input
-                  {...register("slug")}
-                  required
-                  type="text"
-                  id="slug"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
+            <div className="mb-5">
+              <label
+                htmlFor="testimonial"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Testimonial
+              </label>
+              <input
+                {...register("testimonial")}
+                required
+                type="text"
+                id="testimonial"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+              />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mb-5">
-                <label
-                  htmlFor="status"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Status
-                </label>
-                <select
-                  {...register("status")}
-                  id="status"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                >
-                  <option value="1">Published</option>
-                  <option value="0">Draft</option>
-                </select>
-              </div>
-
-              <div className="mb-5">
-                <label
-                  htmlFor="author"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Author
-                </label>
-                <input
-                  {...register("author")}
-                  required
-                  type="text"
-                  id="author"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
+            <div className="mb-5">
+              <label
+                htmlFor="citation"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Citation
+              </label>
+              <input
+                {...register("citation")}
+                required
+                type="text"
+                id="citation"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+              />
             </div>
 
             <div className="mb-5">
               <label
-                htmlFor="content"
+                htmlFor="status"
                 className="block mb-2 text-sm font-medium text-textColor"
               >
-                Content
+                Status
               </label>
-              <textarea
-                {...register("content")}
-                required
-                id="content"
-                rows="5"
+              <select
+                {...register("status")}
+                id="status"
                 className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-              ></textarea>
+              >
+                <option value="1">Active</option>
+                <option value="0">Block</option>
+              </select>
             </div>
+
 
             <div className="mb-5">
               <label

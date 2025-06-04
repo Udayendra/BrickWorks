@@ -6,6 +6,7 @@ import img4 from "../../assets/images/pexels-kampus-5920774.jpg";
 import img3 from "../../assets/images/voyage-pro-ZS9DlF_YBSM-unsplash.jpg";
 import img5 from "../../assets/images/pexels-olly-3783725.jpg";
 import { apiUrl, imageUrl } from "../common/http";
+import { TestimonialSkeletonCard } from "../common/SkeletonLoader";
 
 const testimonialData = [
   {
@@ -129,7 +130,13 @@ const Testimonial = () => {
       </div>
       <div className="slider-container my-5 mb-10 ">
         <Slider {...settings}>
-          {viewTestimonial.map((testimonial, index) => (
+          {
+                  viewTestimonial.length === 0  
+                  ? Array.from({ length: 3 }).map((_, index) => (
+                    <TestimonialSkeletonCard key={index} />
+                  ))
+                  :
+          viewTestimonial.map((testimonial, index) => (
             <div
               key={index}
               className="max-w-[18rem] min-h-[16rem] p-6 bg-white border border-gray-200 rounded-2xl shadow-custom-light m-4 hover:border-highlightColor transition-colors duration-300 "

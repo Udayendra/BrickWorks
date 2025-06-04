@@ -24,6 +24,62 @@
   background-size: cover;
 }
 
+/* skeleton loading */
+/* @keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 25%,
+    #f5f5f5 50%,
+    #e0e0e0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+} */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0%;
+  }
+  25% {
+    background-position: -100% 0%;
+  }
+  50% {
+    background-position: 0% 0%;
+  }
+  75% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    130deg,
+    /* rgba(255, 255, 255, 0) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 75% */
+    #e0e0e0 40%,
+    #f5f5f5 50%,
+    #e0e0e0 70%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+
+
 /* Gradient animation for background */
 @keyframes gradientAnimation {
   0% {

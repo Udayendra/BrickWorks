@@ -5,6 +5,7 @@ import img2 from "../../assets/images/construction4.jpg";
 import img3 from "../../assets/images/engineer-4925135_1280.jpg";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { apiUrl, imageUrl } from "../common/http";
+import { ArticleSkeletonCard } from "../common/SkeletonLoader";
 
 const blogData = [
   {
@@ -83,29 +84,35 @@ const Blog = () => {
         </p>
       </div>
       <div className="commonContainer grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
-        {latestArticle.map((data, index) => (
-          <div
-            key={index}
-            className=" flex flex-col justify-between border-2 bg-white/50 border-gray-400 hover:border-highlightColor rounded-2xl shadow-custom-light h-full transition-transform transform hover:scale-105 hover:shadow-xl duration-300 "
-          >
-            <a href="#">
-              {/* <div className="w-full aspect-w-16 aspect-h-9"> */}
-              <img
-                className="w-full h-52 object-cover rounded-t-2xl"
-                src={imageUrl + "articles/" + data.image}
-                alt=""
-              />
-              {/* </div> */}
-            </a>
-            <div className="p-6 flex flex-col justify-between flex-grow ">
-              <p className="font-normal text-gray-600 mb-5 ">{data.title}</p>
-              <button className="flex items-center max-w-[10rem] justify-center text-highlightColor text-lg font-semibold transition-all duration-300 group/btn space-x-2 border-2 border-highlightColor py-2 px-4 rounded-full hover:bg-highlightColor hover:text-white">
-                <div>Read more</div>
-                <FaArrowRightLong className="translate-x-0 group-hover/btn:translate-x-2 transition-transform duration-300" />
-              </button>
-            </div>
-          </div>
-        ))}
+        {latestArticle.length === 0
+          ? Array.from({ length: 3 }).map((_, index) => (
+              <ArticleSkeletonCard key={index} />
+            ))
+          : latestArticle.map((data, index) => (
+              <div
+                key={index}
+                className=" flex flex-col justify-between border-2 bg-white/50 border-gray-400 hover:border-highlightColor rounded-2xl shadow-custom-light h-full transition-transform transform hover:scale-105 hover:shadow-xl duration-300 "
+              >
+                <a href="#">
+                  {/* <div className="w-full aspect-w-16 aspect-h-9"> */}
+                  <img
+                    className="w-full h-52 object-cover rounded-t-2xl"
+                    src={imageUrl + "articles/" + data.image}
+                    alt=""
+                  />
+                  {/* </div> */}
+                </a>
+                <div className="p-6 flex flex-col justify-between flex-grow ">
+                  <p className="font-normal text-gray-600 mb-5 ">
+                    {data.title}
+                  </p>
+                  <button className="flex items-center max-w-[10rem] justify-center text-highlightColor text-lg font-semibold transition-all duration-300 group/btn space-x-2 border-2 border-highlightColor py-2 px-4 rounded-full hover:bg-highlightColor hover:text-white">
+                    <div>Read more</div>
+                    <FaArrowRightLong className="translate-x-0 group-hover/btn:translate-x-2 transition-transform duration-300" />
+                  </button>
+                </div>
+              </div>
+            ))}
       </div>
       <div className="flex items-center justify-center pt-5">
         <button className="bg-highlightColor text-white text-lg px-8 py-3 rounded-full font-semibold border-2 border-highlightColor hover:text-highlightColor hover:bg-transparent transition-all duration-300">

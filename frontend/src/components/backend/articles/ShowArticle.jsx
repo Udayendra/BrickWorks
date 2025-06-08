@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { SideBar } from "../SideBar";
 import Footer from "../../common/Footer";

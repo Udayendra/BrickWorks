@@ -9,6 +9,8 @@ import Button from "../Button";
 import { FaArrowRightLong } from "react-icons/fa6";
 import AnimatedBackground from "../AnimatedBackground";
 
+
+
 import { apiUrl, imageUrl } from "../../common/http";
 
 const blogData = [
@@ -137,6 +139,31 @@ function TruncateText(text, maxLength) {
 }
 
 const BlogPage = () => {
+  const [viewArticle, setViewArticle] = useState([]);
+
+  const fetchArticle = async () => {
+    try {
+      const res = await fetch(apiUrl + "view-article", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const result = await res.json();
+      if (result.status) {
+        setViewArticle(result.data);
+      } else {
+        console.log("status false");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchArticle();
+  }, []);
 
   const [viewArticle, setViewArticle] = useState([]);
 
@@ -202,7 +229,9 @@ const BlogPage = () => {
           </div>
           {/*----------------- blogs ----------------- */}
 
+
           
+
       <div className="commonContainer grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
         {viewArticle.map((data, index) => (
           <div

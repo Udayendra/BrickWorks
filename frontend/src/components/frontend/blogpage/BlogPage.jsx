@@ -8,9 +8,6 @@ import img4 from "../../../assets/images/building-contracting.jpg";
 import Button from "../Button";
 import { FaArrowRightLong } from "react-icons/fa6";
 import AnimatedBackground from "../AnimatedBackground";
-
-
-
 import { apiUrl, imageUrl } from "../../common/http";
 
 const blogData = [
@@ -139,31 +136,31 @@ function TruncateText(text, maxLength) {
 }
 
 const BlogPage = () => {
-  const [viewArticle, setViewArticle] = useState([]);
+  // const [viewArticle, setViewArticle] = useState([]);
 
-  const fetchArticle = async () => {
-    try {
-      const res = await fetch(apiUrl + "view-article", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const result = await res.json();
-      if (result.status) {
-        setViewArticle(result.data);
-      } else {
-        console.log("status false");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const fetchArticle = async () => {
+  //   try {
+  //     const res = await fetch(apiUrl + "view-article", {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //       },
+  //     });
+  //     const result = await res.json();
+  //     if (result.status) {
+  //       setViewArticle(result.data);
+  //     } else {
+  //       console.log("status false");
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchArticle();
-  }, []);
+  // useEffect(() => {
+  //   fetchArticle();
+  // }, []);
 
   const [viewArticle, setViewArticle] = useState([]);
 

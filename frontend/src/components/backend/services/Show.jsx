@@ -90,9 +90,7 @@ const Show = () => {
             <>
               <header className="w-full flex justify-between items-center border-b-2 pb-4">
                 <h2 className="text-2xl">Services</h2>
-                {/* <Link to={"/admin/create"}>
-                <Button title={"Create"} className={"bg-highlightColor"} />
-                </Link> */}
+
                 <Button
                   title={"Create"}
                   className={"bg-highlightColor"}

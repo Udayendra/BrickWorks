@@ -21,7 +21,8 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("http://127.0.0.1:8000/api/authenticate", {
+      // const res = await fetch("http://127.0.0.1:8000/api/authenticate", {
+      const res = await fetch("https://brickworksbackend.infinityfreeapp.com/api/authenticate", {
         method: "POST",
         headers: {
           "content-type": "application/json",

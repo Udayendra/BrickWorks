@@ -46,36 +46,35 @@ const Blog = () => {
     <div className=" py-10">
       {/* <div className="bg-accentColor/20 py-10"> */}
       <div className="flex flex-col items-center justify-center commonContainer">
-        <h1 className="font-semibold text-highlightColor text-xl">
-        Our Blog
-        </h1>
+        <h1 className="font-semibold text-highlightColor text-xl">Our Blog</h1>
         <p className="text-[2rem] md:text-[2.5rem] font-semibold text-textColor text-center">
-        Thoughts & Updates from the Field
+          Thoughts & Updates from the Field
         </p>
         <p className="text-sm text-textColor text-center max-w-2xl">
-        Explore industry insights, behind-the-scenes stories, and valuable knowledge from our construction journey.
+          Explore industry insights, behind-the-scenes stories, and valuable
+          knowledge from our construction journey.
         </p>
       </div>
-      <div className="commonContainer flex flex-wrap items-center justify-center gap-5">
+      <div className="commonContainer grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
         {blogData.map((data, index) => (
           <div
             key={index}
-            className="max-w-[20rem] flex flex-col justify-between border-2 bg-white border-gray-400 rounded-2xl shadow-custom-light h-full hover:border-highlightColor transition-colors duration-300 "
+            className=" flex flex-col justify-between border-2 bg-white/50 border-gray-400 hover:border-highlightColor rounded-2xl shadow-custom-light h-full transition-transform transform hover:scale-105 hover:shadow-xl duration-300 "
           >
             <a href="#">
-              <div className="w-full aspect-w-16 aspect-h-9">
-                <img
-                  className="w-full h-48 object-cover rounded-t-lg"
-                  src={data.img}
-                  alt=""
-                />
-              </div>
+              {/* <div className="w-full aspect-w-16 aspect-h-9"> */}
+              <img
+                className="w-full h-52 object-cover rounded-t-2xl"
+                src={data.img}
+                alt=""
+              />
+              {/* </div> */}
             </a>
-            <div className="p-5 flex flex-col items-start justify-between flex-grow ">
-              <p className="mb-3 font-normal text-gray-700 ">
+            <div className="p-6 flex flex-col justify-between flex-grow ">
+              <p className="font-normal text-gray-600 mb-5 ">
                 {TruncateText(data.description, 55)}
               </p>
-              <button className="flex items-center justify-center text-highlightColor text-lg font-semibold transition-all duration-300 group/btn space-x-2 border-2 border-highlightColor py-2 px-4 rounded-full hover:bg-highlightColor hover:text-white">
+              <button className="flex items-center max-w-[10rem] justify-center text-highlightColor text-lg font-semibold transition-all duration-300 group/btn space-x-2 border-2 border-highlightColor py-2 px-4 rounded-full hover:bg-highlightColor hover:text-white">
                 <div>Read more</div>
                 <FaArrowRightLong className="translate-x-0 group-hover/btn:translate-x-2 transition-transform duration-300" />
               </button>

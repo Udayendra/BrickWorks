@@ -44,8 +44,6 @@ const Projects = () => {
     }
   };
 
-  console.log(latestProject);
-
   useEffect(() => {
     fetchProject();
   }, []);

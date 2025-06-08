@@ -14,6 +14,9 @@ import { default as ShowServices } from "./components/backend/services/Show";
 import { default as ShowProjects } from "./components/backend/projects/ShowProject";
 import ShowArticle from "./components/backend/articles/ShowArticle";
 
+import ShowTestimonials from "./components/backend/testimonials/ShowTestimonials";
+
+
 function App() {
   return (
     <>
@@ -57,6 +60,15 @@ function App() {
             element={
               <RequireAuth>
                 <ShowArticle />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/admin/testimonial"
+            element={
+              <RequireAuth>
+                <ShowTestimonials />
               </RequireAuth>
             }
           />

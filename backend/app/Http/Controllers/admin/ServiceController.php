@@ -65,7 +65,6 @@ class ServiceController extends Controller
         $modal->slug = Str::slug($request->slug);
         $modal->content = $request->content;
         $modal->status = $request->status;
-        $modal->save();
 
         if ($request->imageId > 0) {
             $tempImage = TempImage::find($request->imageId);
@@ -82,9 +81,9 @@ class ServiceController extends Controller
                 $image->save($despath);
 
                 $modal->image = $fileName;
-                $modal->save();
             }
         }
+        $modal->save();
 
         return response()->json([
             'status' => true,

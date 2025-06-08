@@ -126,14 +126,14 @@ const EditProject = ({ editOpen, onClose, onEditProject, project }) => {
   };
 
   return (
-    <div className="z-30 w-full h-full bg-black/20 absolute top-0 left-0 in flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-30 w-full h-full bg-black/20 absolute top-0 left-0 in flex justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[50rem] min-h-[50rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
-          <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
+          <h3 className="font-semibold mb-3 text-xl">Edite a Project</h3>
         </header>
         <main>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
                   htmlFor="name"
@@ -165,39 +165,7 @@ const EditProject = ({ editOpen, onClose, onEditProject, project }) => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mb-5">
-                <label
-                  htmlFor="short_description"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Short description
-                </label>
-                <input
-                  {...register("short_desc")}
-                  required
-                  type="text"
-                  id="short_description"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-              {/* New Fields Start */}
-              <div className="mb-5">
-                <label
-                  htmlFor="construction_type"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Construction Type
-                </label>
-                <input
-                  {...register("construction_type")}
-                  required
-                  type="text"
-                  id="construction_type"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-            </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
@@ -230,19 +198,20 @@ const EditProject = ({ editOpen, onClose, onEditProject, project }) => {
                 />
               </div>
             </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
-                  htmlFor="content"
+                  htmlFor="construction_type"
                   className="block mb-2 text-sm font-medium text-textColor"
                 >
-                  Content
+                  Construction Type
                 </label>
                 <input
-                  {...register("content")}
+                  {...register("construction_type")}
                   required
                   type="text"
-                  id="content"
+                  id="construction_type"
                   className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
                 />
               </div>
@@ -263,6 +232,38 @@ const EditProject = ({ editOpen, onClose, onEditProject, project }) => {
                   <option value="0">Block</option>
                 </select>
               </div>
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="short_description"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Short description
+              </label>
+              <input
+                {...register("short_desc")}
+                required
+                type="text"
+                id="short_description"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+              />
+            </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="content"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Content
+              </label>
+              <textarea
+                {...register("content")}
+                required
+                id="content"
+                rows="5"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+              ></textarea>
             </div>
             <div className="mb-5 grid grid-cols-2">
               <div className="">

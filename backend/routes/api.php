@@ -5,10 +5,12 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\TempImageController;
+use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\front\ViewArticleController;
 use App\Http\Controllers\front\ViewProjectController;
 use App\Http\Controllers\front\ViewServiceController;
+use App\Http\Controllers\front\ViewTestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +29,8 @@ Route::get('latest-project', [ViewProjectController::class, 'latestProject']);
 Route::get('view-article', [ViewArticleController::class, 'index']);
 Route::get('latest-article', [ViewArticleController::class, 'latestArticle']);
 
+// getTestimonial
+Route::get('view-testimonial', [ViewTestimonialController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
@@ -50,10 +54,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('projects/{id}', [ProjectController::class, 'destroy']);
 
     // articles api 
-
     Route::get('articles', [ArticleController::class, 'index']);
     Route::post('articles', [ArticleController::class, 'store']);
     Route::put('articles/{id}', [ArticleController::class, 'update']);
     Route::get('articles/{id}', [ArticleController::class, 'show']);
     Route::delete('articles/{id}', [ArticleController::class, 'destroy']);
+
+    // testimonial api
+    Route::get('testimonials', [TestimonialController::class, 'index']);
+    Route::get('testimonials/{id}', [TestimonialController::class, 'show']);
+    Route::post('testimonials', [TestimonialController::class, 'store']); 
+    Route::put('testimonials/{id}', [TestimonialController::class, 'update']);
+    Route::delete('testimonials/{id}', [TestimonialController::class, 'destroy']);
 });

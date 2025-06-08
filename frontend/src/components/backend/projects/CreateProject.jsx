@@ -18,13 +18,13 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
 
   useEffect(() => {
     if (createOpen) {
-      document.documentElement.style.overflow = "hidden"; // Prevent background scroll
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.documentElement.style.overflow = "auto"; // Restore scroll when closed
+      document.documentElement.style.overflow = "auto";
     }
 
     return () => {
-      document.documentElement.style.overflow = "auto"; // Cleanup on unmount
+      document.documentElement.style.overflow = "auto";
     };
   }, [createOpen]);
 
@@ -33,7 +33,6 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      // Include new fields along with others and imageId
       const newData = { ...data, imageId: imageId };
       console.log(newData);
 
@@ -60,7 +59,6 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
       setLoading(false);
     }
   };
-
 
   const handleimage = async (e) => {
     const formData = new FormData();
@@ -89,10 +87,10 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
   };
 
   return (
-    <div className="z-30 w-full h-full bg-black/20 fixed top-0 left-0 flex items-center justify-center overflow-y-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[50rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-10 w-full h-full bg-black/20 absolute top-0 left-0 flex justify-center overflow-y-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[50rem] min-h-[47rem]  px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
-          <h3 className="font-semibold mb-3 text-xl">Create a Service</h3>
+          <h3 className="font-semibold mb-3 text-xl">Create a Project</h3>
         </header>
         <main>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -128,39 +126,7 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mb-5">
-                <label
-                  htmlFor="short_description"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Short description
-                </label>
-                <input
-                  {...register("short_desc")}
-                  required
-                  type="text"
-                  id="short_description"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-              {/* New Fields Start */}
-              <div className="mb-5">
-                <label
-                  htmlFor="construction_type"
-                  className="block mb-2 text-sm font-medium text-textColor"
-                >
-                  Construction Type
-                </label>
-                <input
-                  {...register("construction_type")}
-                  required
-                  type="text"
-                  id="construction_type"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                />
-              </div>
-            </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
@@ -193,19 +159,20 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
                 />
               </div>
             </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-5">
                 <label
-                  htmlFor="content"
+                  htmlFor="construction_type"
                   className="block mb-2 text-sm font-medium text-textColor"
                 >
-                  Content
+                  Construction Type
                 </label>
                 <input
-                  {...register("content")}
+                  {...register("construction_type")}
                   required
                   type="text"
-                  id="content"
+                  id="construction_type"
                   className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
                 />
               </div>
@@ -227,14 +194,47 @@ const CreateProject = ({ createOpen, onClose, onCreateProject }) => {
                 </select>
               </div>
             </div>
+
+            <div className="mb-5">
+              <label
+                htmlFor="short_description"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Short description
+              </label>
+              <input
+                {...register("short_desc")}
+                required
+                type="text"
+                id="short_description"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+              />
+            </div>
+
             <div className="mb-5">
               <label
                 htmlFor="content"
                 className="block mb-2 text-sm font-medium text-textColor"
               >
+                Content
+              </label>
+              <textarea
+                {...register("content")}
+                required
+                id="content"
+                rows="5"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+              ></textarea>
+            </div>
+            
+            <div className="mb-5">
+              <label
+                htmlFor="image"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
                 Upload image
               </label>
-              <input required type="file" id="content" onChange={handleimage} />
+              <input required type="file" id="image" onChange={handleimage} />
             </div>
             <div className="flex justify-end space-x-2 mt-6">
               <button

@@ -46,23 +46,8 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
       document.documentElement.style.overflow = "auto"; // Cleanup on unmount
     };
   }, [editOpen, service?.id, reset]);
-  // console.log(service)
-  // useEffect(() => {
 
-  // }, [editOpen]);
-
-  // reset({
-  //   title: service.title,
-  //   slug: service.slug,
-  //   short_desc: service.short_desc,
-  //   content: service.content,
-  //   status: service.status,
-  // });
   if (!editOpen) return;
-
-  //   useEffect(() => {
-  //     reset(service);
-  //   }, [service, reset]);
 
   const onSubmit = async (data) => {
     try {
@@ -128,14 +113,14 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
   };
 
   return (
-    <div className="z-10 w-full h-full bg-black/20 fixed left-0 top-0 flex justify-center overflow-auto py-12 backdrop-blur-sm">
-      <div className="bg-white w-[40rem] px-5 py-5 rounded-lg border border-gray-700">
+    <div className="z-10 w-full h-full bg-black/20 absolute left-0 top-0 flex justify-center overflow-auto py-12 backdrop-blur-sm">
+      <div className="bg-white w-[40rem] min-h-[45rem] px-5 py-5 rounded-lg border border-gray-700">
         <header className="flex items-center justify-center">
           <h3 className="font-semibold mb-3 text-xl">Edit Service</h3>
         </header>
         <main className="h-full">
           <form onSubmit={handleSubmit(onSubmit)} className="">
-            <div className="mb-5">
+          <div className="mb-5">
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-textColor"
@@ -168,23 +153,42 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
                   // placeholder="Slug"
                 />
               </div>
+
               <div className="mb-5">
                 <label
-                  htmlFor="short_description"
-                  className="block mb-2 text-sm font-medium text-textColor"
+                  htmlFor="status"
+                  className="block text-sm font-medium text-textColor mb-1"
                 >
-                  Short description
+                  Status
                 </label>
-                <input
-                  {...register("short_desc")}
-                  required
-                  type="text"
-                  id="short_description"
-                  className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                  // placeholder="Slug"
-                />
+                <select
+                  {...register("status")}
+                  name="status"
+                  id="status"
+                  className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm  transition-all duration-200 ease-in-out hover:border-gray-400"
+                >
+                  <option value="1">Active</option>
+                  <option value="0">Block</option>
+                </select>
               </div>
             </div>
+            <div className="mb-5">
+              <label
+                htmlFor="short_description"
+                className="block mb-2 text-sm font-medium text-textColor"
+              >
+                Short description
+              </label>
+              <input
+                {...register("short_desc")}
+                required
+                type="text"
+                id="short_description"
+                className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
+                // placeholder="Slug"
+              />
+            </div>
+
             <div className="mb-5">
               <label
                 htmlFor="content"
@@ -192,45 +196,27 @@ const EditServices = ({ editOpen, onClose, onEditService, service }) => {
               >
                 Content
               </label>
-              <input
+              <textarea
                 {...register("content")}
                 required
-                type="text"
                 id="content"
+                rows="5"
                 className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
-                // placeholder="Slug"
-              />
+              ></textarea>
             </div>
-            <div className="mb-5">
-              <label
-                htmlFor="status"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Status
-              </label>
-              <select
-                {...register("status")}
-                name="status"
-                id="status"
-                className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-sm text-gray-700 shadow-sm  transition-all duration-200 ease-in-out hover:border-gray-400"
-              >
-                <option value="1">Active</option>
-                <option value="0">Block</option>
-              </select>
-            </div>{" "}
             <div className="mb-5 grid grid-cols-2">
               <div>
                 <label
-                  htmlFor="content"
+                  htmlFor="image"
                   className="block mb-2 text-sm font-medium text-textColor"
                 >
                   Upload image
                 </label>
                 <input
-                  // {...register("content")}
+                  // {...register("image")}
                   required
                   type="file"
-                  id="content"
+                  id="image"
                   onChange={handleimage}
                   // className="bg-gray-50 border border-gray-300 text-textColor text-sm rounded-lg block w-full p-2.5"
                   // placeholder="Slug"

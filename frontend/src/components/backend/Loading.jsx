@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loading = ({ className }) => {
+const loading = ({ className }) => {
   return (
     <div
       className={` border-t-transparent border-b-transparent rounded-full animate-spin ml-3 ${className}`}
@@ -8,4 +8,4 @@ const Loading = ({ className }) => {
   );
 };
 
-export default Loading;
+export default loading;

@@ -5,7 +5,7 @@ import Button from "../../frontend/Button";
 import { apiUrl, token } from "../../common/http";
 import CreateTestimonials from "./CreateTestimonials";
 import EditTestimonials from "./EditTestimonials";
-import Loading from "../loading";
+import Loading from "../Loading";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";

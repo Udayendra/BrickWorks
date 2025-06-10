@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Loading from "../loading";
+import Loading from "../Loading";
 import { useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { apiUrl, imageUrl, projectImageUrl, token } from "../../common/http";

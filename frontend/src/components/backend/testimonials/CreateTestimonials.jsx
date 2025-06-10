@@ -9,7 +9,7 @@
 // export default CreateTestimonials
 
 import React, { useState, useEffect } from "react";
-import Loading from "../loading";
+import Loading from "../Loading";
 import { useForm } from "react-hook-form";
 import { apiUrl, token } from "../../common/http";
 import { toast } from "react-toastify";

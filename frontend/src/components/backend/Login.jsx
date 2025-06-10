@@ -5,7 +5,7 @@ import Footer from "../common/Footer";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "./context/Auth";
-import Loading from "./loading";
+import Loading from "./Loading";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

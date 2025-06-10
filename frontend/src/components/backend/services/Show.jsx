@@ -4,7 +4,7 @@ import Footer from "../../common/Footer";
 import Button from "../../frontend/Button";
 import { apiUrl, token } from "../../common/http";
 import { default as CreateServices } from "./Create";
-import Loading from "../loading";
+import Loading from "../Loading";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";

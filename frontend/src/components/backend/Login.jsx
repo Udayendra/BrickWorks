@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "./context/Auth";
 import Loading from "./Loading";
-import apiUrl from "../common/http";
+import {apiUrl} from "../common/http.jsx";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

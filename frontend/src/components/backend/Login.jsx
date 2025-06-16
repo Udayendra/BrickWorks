@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "./context/Auth";
 import Loading from "./Loading";
+import apiUrl from "../common/http";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -20,9 +21,10 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
+      
 
       // const res = await fetch("http://127.0.0.1:8000/api/authenticate", {
-      const res = await fetch("https://brickworksbackend.infinityfreeapp.com/api/authenticate", {
+      const res = await fetch(apiUrl+"authenticate", {
         method: "POST",
         headers: {
           "content-type": "application/json",

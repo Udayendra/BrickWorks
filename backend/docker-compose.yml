@@ -9,6 +9,8 @@ services:
       - "9010:9010"
     volumes:
       - .:/var/www
+      - ./backend/ca.pem:/var/www/backend/ca.pem
+
     depends_on:
       - db
     environment:

@@ -19,6 +19,8 @@ services:
       DB_DATABASE: laravel_db
       DB_USERNAME: laravel_user
       DB_PASSWORD: secret
+  
+  
 
   db:
     image: mysql:8.0

@@ -1,3 +1,0 @@
-echo "Running composer"
-
-composer install --no-dev --working-dir
